@@ -2,11 +2,11 @@ from django.views.generic import ListView, DetailView, CreateView, FormView
 from django.urls import reverse_lazy
 from .models import Blog, Review, Comment
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django import forms
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 class BlogListView(ListView):
     model = Blog
@@ -78,3 +78,32 @@ def register(request):
     else:
         form = RegisterUser()
     return render(request, 'blogapp/create_user.html', {'form': form})
+
+class LoginUser(AuthenticationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'password']
+
+def signin(request):
+        if request.method == 'POST':
+            user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
+            if user is None:
+                return render(request, 'login.html',{
+                'form': LoginUser(request.POST),
+                'error': 'El usuario o la contraseña son incorrectos'
+            })
+            else:
+                login(request, user)
+                return redirect('blogapp:blog_list')
+            return render(request, 'login.html',{
+            'form': LoginUser(request.POST)
+            })
+        else:
+            return render(request, 'login.html',{
+            'form': LoginUser(request.POST),
+            'error': 'El usuario o la contraseña son incorrectos'
+            })
+
+def signout(request):
+    logout(request)
+    return redirect('blogapp:blog_list')
