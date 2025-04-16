@@ -68,13 +68,13 @@ def register(request):
     if request.method == 'POST':
         form = RegisterUser(request.POST)
         if form.is_valid():
-            user = form.save()  # guarda el usuario
+            user = form.save()
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)  # lo autentica
+            user = authenticate(username=username, password=raw_password) 
             if user is not None:
-                login(request, user)  # lo loguea
-                return redirect('blog_list')
+                login(request, user)
+                return redirect('blogapp:blog_list')
     else:
         form = RegisterUser()
     return render(request, 'blogapp/create_user.html', {'form': form})
