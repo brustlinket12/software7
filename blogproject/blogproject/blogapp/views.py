@@ -6,6 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
 
 class BlogListView(ListView):
     model = Blog
@@ -62,13 +63,18 @@ class CommentCreateView(LoginRequiredMixin, CreateView): #Pide usuario logeado p
 class RegisterUser(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username', 'password']
+        fields = ['username', 'password1','password2']
 def register(request):
     if request.method == 'POST':
         form = RegisterUser(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('blog_list')  
+            user = form.save()  # guarda el usuario
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)  # lo autentica
+            if user is not None:
+                login(request, user)  # lo loguea
+                return redirect('blog_list')
     else:
         form = RegisterUser()
     return render(request, 'blogapp/create_user.html', {'form': form})
