@@ -46,6 +46,7 @@
   }
 </style>
 </head>
+
 <body id="body" class="flex flex-col min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white font-sans transition-all duration-700 ease-in-out">
   <nav class="bg-white dark:bg-gradient-to-r dark:from-gray-900 dark:to-gray-700 shadow-md py-4 px-6 transition-colors">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
@@ -55,6 +56,11 @@
   <span id="theme-icon" class="transition-transform duration-500 transform">🌞</span>
   <span id="theme-label" class="transition-opacity duration-500 ease-in-out">Modo Claro</span>
 </button>
+
+<a href="{% url 'blogapp:create_user' %}">
+  <button class="bg-blue-800 hover:bg-blue-700 text-white py-2 px-4 rounded-full transition-all duration-300">Registrar</button>
+</a>
+
         {% if user.is_authenticated %}
           <a href="{% url 'blogapp:add_blog' %}" class="bg-blue-500 hover:bg-blue-600 text-white dark:bg-blue-600 dark:hover:bg-blue-700 dark:text-white font-medium py-2 px-4 rounded transition-all duration-500 ease-in-out">New Blog</a>
         {% endif %}
@@ -63,6 +69,7 @@
   </nav>
   <main class="flex-grow w-full bg-white dark:bg-gray-900 transition-all duration-700 ease-in-out">
     <div class="max-w-4xl mx-auto px-4 py-8">
+      
     {% block content %}{% endblock %}
     </div>
   </main>

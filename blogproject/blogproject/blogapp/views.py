@@ -58,23 +58,17 @@ class CommentCreateView(LoginRequiredMixin, CreateView): #Pide usuario logeado p
     def get_success_url(self):
         return reverse_lazy('blogapp:blog_detail', kwargs={'pk': self.kwargs['blog_pk']})
 
-#TODO: redireccionar el usuario a la pagina de registro o la de inicio de sesión
-#TODO: si este intenta crear un blog, review o comentario sin haber iniciado sesión (por eso el LoginRequiredMixin de arriba)
 
-
-# crear usuarios
 class RegisterUser(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'password']
-
 def register(request):
     if request.method == 'POST':
         form = RegisterUser(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('blogapp/base.html')
+            return redirect('blog_list')  
     else:
         form = RegisterUser()
-
     return render(request, 'blogapp/create_user.html', {'form': form})
