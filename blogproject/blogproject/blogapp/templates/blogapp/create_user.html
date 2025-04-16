@@ -11,7 +11,7 @@
             <!-- username -->
             <div class="mb-4">
                 <label for="{{ form.username.id_for_label }}" class="block text-sm font-medium text-gray-900 dark:text-white">Nombre de usuario</label>
-                {{ form.username|add_class:"mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" }}
+                {{ form.username|add_class:"mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-black" }}
                 {% for error in form.username.errors %}
                     <div class="text-sm text-red-600">{{ error }}</div>
                 {% endfor %}
@@ -20,7 +20,7 @@
             <!-- password -->
             <div class="mb-4">
                 <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
-                {{ form.password1|add_class:"mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" }}
+                {{ form.password1|add_class:"mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-black" }}
                 {% for error in form.password1.errors %}
                     <div class="text-sm text-red-600">{{ error }}</div>
                 {% endfor %}
@@ -29,7 +29,7 @@
             <!-- verifica el password -->
             <div class="mb-4">
                 <label for="{{ form.password2.id_for_label }}" class="block text-sm font-medium text-gray-900 dark:text-white">Confirmar contraseña</label>
-                {{ form.password2|add_class:"mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" }}
+                {{ form.password2|add_class:"mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-black" }}
                 {% for error in form.password2.errors %}
                     <div class="text-sm text-red-600">{{ error }}</div>
                 {% endfor %}
