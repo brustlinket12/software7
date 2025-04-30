@@ -7,6 +7,9 @@ from django.contrib.auth.models import User
 from django import forms
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import get_object_or_404
+from django.contrib import messages
+from django.db import IntegrityError
 
 class BlogListView(ListView):
     model = Blog
@@ -36,14 +39,31 @@ class ReviewCreateView(LoginRequiredMixin, CreateView): #Pide usuario logeado pa
     model = Review
     fields = ['rating', 'comment']
     template_name = 'blogapp/review_form.html'
+    def dispatch(self, request, *args, **kwargs):
+        self.blog = get_object_or_404(Blog, pk=self.kwargs['pk'])
+        # Verificar si el usuario ya ha dejado una reseña para este blog
+        if self.request.user.is_authenticated and Review.objects.filter(blog=self.blog, reviewer=self.request.user).exists():
+            return self.handle_no_permission()  # Redirige directamente si ya existe
+        return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         form.instance.reviewer = self.request.user
         form.instance.blog_id = self.kwargs['pk']
-        return super().form_valid(form)
+        try:
+            return super().form_valid(form)
+        except IntegrityError:
+            messages.error(self.request, 'Ya has dejado una reseña para esta publicación.')
+            return self.form_invalid(form)
+
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(form=form))
 
     def get_success_url(self):
         return reverse_lazy('blogapp:blog_detail', kwargs={'pk': self.kwargs['pk']})
+
+    def handle_no_permission(self):
+        messages.error(self.request, 'Ya has dejado una reseña para esta publicación.')
+        return redirect(self.get_success_url())
 
 
 class CommentCreateView(LoginRequiredMixin, CreateView): #Pide usuario logeado para crear review
