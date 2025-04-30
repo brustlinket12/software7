@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import BlogListView, BlogDetailView, ReviewCreateView, CommentCreateView, BlogCreateView
+from .views import BlogListView, BlogDetailView, ReviewCreateView, CommentCreateView, BlogCreateView, PasswordChange, PasswordChangeDone
 from .views import register, signin, signout
+from django.contrib.auth import views
 
 app_name = 'blogapp'
 
@@ -14,4 +15,6 @@ urlpatterns = [
     path('register/', register, name='create_user'),
     path('login/', signin, name='login'),
     path('logout/', signout, name='logout'),
+    path('password-change/', PasswordChange.as_view(), name='password_change'),
+    path('password-change/done/', PasswordChangeDone.as_view(), name='password_change_done'),
 ]
