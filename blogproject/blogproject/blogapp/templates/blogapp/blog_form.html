@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
 {% block content %}
-  <h1 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Create a New Blog</h1>
+  <h1 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+    {% if form.instance.pk %}Editar Blog{% else %}Crear un Nuevo Blog{% endif %}
+  </h1>
   <form method="post" class="space-y-4 transition-all duration-700 ease-in-out animate-fade-in">{% csrf_token %}
     <div class="space-y-2 transition-all duration-700 ease-in-out">
       {% for field in form %}
@@ -15,5 +17,12 @@
       {% endfor %}
     </div>
     <button type="submit" class="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white dark:bg-blue-600 dark:hover:bg-blue-700 rounded transition-all duration-500 ease-in-out">Post Blog</button>
+    {% if form.instance.pk %} 
+    <button>
+      <a href="{% url 'blogapp:profile' %}" class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white dark:bg-red-600 dark:hover:bg-red-700 rounded transition-all duration-500 ease-in-out">Cancelar edición</a>
+    </button> 
+    {% endif %}
+
   </form>
+
 {% endblock %}

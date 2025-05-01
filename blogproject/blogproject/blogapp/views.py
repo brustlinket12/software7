@@ -1,4 +1,4 @@
-from django.views.generic import ListView, DetailView, CreateView, FormView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, FormView, DeleteView, UpdateView
 from django.urls import reverse_lazy
 from .models import Blog, Review, Comment
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -41,6 +41,17 @@ class BlogDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def get_queryset(self):
         return Blog.all_objects.filter(is_deleted=False)
 
+    def test_func(self):
+        return self.request.user == self.get_object().author
+    
+class BlogUpdateView(LoginRequiredMixin, UserPassesTestMixin,UpdateView ):
+    model = Blog
+    fields = ['title', 'content']
+    template_name = 'blog_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('blogapp:blog_detail', kwargs={'pk': self.object.pk})
+    
     def test_func(self):
         return self.request.user == self.get_object().author
 
