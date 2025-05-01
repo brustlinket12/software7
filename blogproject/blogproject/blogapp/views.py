@@ -38,6 +38,9 @@ class BlogDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Blog
     success_url = reverse_lazy('blogapp:blog_list')
 
+    def get_queryset(self):
+        return Blog.all_objects.filter(is_deleted=False)
+
     def test_func(self):
         return self.request.user == self.get_object().author
 
@@ -85,6 +88,13 @@ class CommentCreateView(LoginRequiredMixin, CreateView): #Pide usuario logeado p
     def get_success_url(self):
         return reverse_lazy('blogapp:blog_detail', kwargs={'pk': self.kwargs['blog_pk']})
 
+class ProfileView(ListView):
+    model = Blog
+    template_name = 'blogapp/profile.html'
+    context_object_name = 'object_list'
+
+    def get_queryset(self):
+        return Blog.objects.filter(author=self.request.user)
 
 class RegisterUser(UserCreationForm):
     class Meta:
@@ -133,8 +143,3 @@ def signin(request):
 def signout(request):
     logout(request)
     return redirect('blogapp:blog_list')
-
-
-def profile(request):
-
-    return render(request, 'blogapp/profile.html')
