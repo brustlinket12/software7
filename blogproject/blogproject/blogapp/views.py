@@ -127,3 +127,7 @@ def signin(request):
 def signout(request):
     logout(request)
     return redirect('blogapp:blog_list')
+
+
+def profile(request):
+    return render(request, 'blogapp/profile.html')

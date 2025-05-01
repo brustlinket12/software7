@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import BlogListView, BlogDetailView, ReviewCreateView, CommentCreateView, BlogCreateView
-from .views import register, signin, signout
+from .views import register, signin, signout, profile
 
 app_name = 'blogapp'
 
@@ -14,4 +14,5 @@ urlpatterns = [
     path('register/', register, name='create_user'),
     path('login/', signin, name='login'),
     path('logout/', signout, name='logout'),
+    path('profile/', profile, name='profile'),
 ]

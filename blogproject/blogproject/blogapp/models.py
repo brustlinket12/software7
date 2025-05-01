@@ -7,7 +7,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Blog(models.Model):
     title = models.CharField(max_length=200)
-    content = models.TextField()
+    content = models.TextField(max_length=2000)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
