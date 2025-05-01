@@ -1,7 +1,7 @@
-from django.views.generic import ListView, DetailView, CreateView, FormView
+from django.views.generic import ListView, DetailView, CreateView, FormView, DeleteView
 from django.urls import reverse_lazy
 from .models import Blog, Review, Comment
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django import forms
@@ -34,6 +34,12 @@ class BlogCreateView(LoginRequiredMixin, CreateView):
         return reverse_lazy('blogapp:blog_detail', kwargs={'pk': self.object.pk})
 
 
+class BlogDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Blog
+    success_url = reverse_lazy('blogapp:blog_list')
+
+    def test_func(self):
+        return self.request.user == self.get_object().author
 
 class ReviewCreateView(LoginRequiredMixin, CreateView): #Pide usuario logeado para crear review
     model = Review
@@ -130,4 +136,5 @@ def signout(request):
 
 
 def profile(request):
+
     return render(request, 'blogapp/profile.html')
