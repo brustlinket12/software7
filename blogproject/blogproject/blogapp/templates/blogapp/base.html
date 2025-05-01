@@ -96,30 +96,8 @@
               >Modo Claro</span
             >
           </button>
-          
-          <!--
-          <a href="{% url 'blogapp:create_user' %}">
-            <button
-              class="bg-blue-800 hover:bg-blue-700 text-white py-2 px-4 rounded-full transition-all duration-300"
-            >
-              Registrar
-            </button>
-          </a> -->
 
-          {% if user.is_authenticated %}
-          <a href="{% url 'blogapp:logout' %}">
-            <button class="bg-red-800 hover:bg-red-700 text-white py-2 px-4 rounded-full transition-all duration-300">
-              Cerrar Sesión
-            </button>
-          </a>
-          {% else %}
-          <a href="{% url 'blogapp:login' %}">
-            <button class="bg-blue-800 hover:bg-blue-700 text-white py-2 px-4 rounded-full transition-all duration-300">
-              Iniciar Sesión
-            </button>
-          </a>
-          {% endif %}
-
+          <!-- Botón de crear blog | solo aparece si estas logeado-->
 
           {% if user.is_authenticated %}
           <a
@@ -128,6 +106,45 @@
             >Nuevo blog</a
           >
           {% endif %}
+
+          <!-- boton del perfil de usuario -->
+
+          {% if user.is_authenticated %}
+          <div class="relative inline-block text left">
+            <button id="userMenuButton" class="w-10 h-10 rounded-full bg-blue-800 text-white flex items-center justify-center font-bold focus:outline-none focus:ring-2 focus:ring-blue-500">
+              {{ user.username|slice:":1"|upper }}
+            </button>
+
+            <div id="userDropdown" class="hidden absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50">
+              <a href="{% url 'blogapp:profile' %}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Perfil</a>
+              <form method="post" action="{% url 'blogapp:logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700">Cerrar Sesión</button>
+              </form>
+            </div>
+          </div>
+
+          <script>
+            const menuButton = document.getElementById("userMenuButton");
+            const dropdown = document.getElementById("userDropdown");
+
+            document.addEventListener("click", (e) => {
+              if (menuButton.contains(e.target)) {
+                dropdown.classList.toggle("hidden");
+              } else if (!dropdown.contains(e.target)) {
+                dropdown.classList.add("hidden");
+              }
+            });
+          </script>
+
+          {% else %}
+          <a href="{% url 'blogapp:login' %}">
+            <button class="bg-blue-800 hover:bg-blue-700 text-white py-2 px-4 rounded-full transition-all duration-300">
+              Iniciar Sesión
+            </button>
+          </a>
+          {% endif %}
+
         </div>
       </div>
     </nav>
