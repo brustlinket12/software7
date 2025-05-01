@@ -33,7 +33,9 @@ class BlogCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse_lazy('blogapp:blog_detail', kwargs={'pk': self.object.pk})
 
-
+# clase pa borrar un blog, DeleteView hace eso
+# en realidad no los "borra", si no que los "oculta"
+# así no se borra nada en la base
 class BlogDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Blog
     success_url = reverse_lazy('blogapp:blog_list')
@@ -44,6 +46,8 @@ class BlogDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         return self.request.user == self.get_object().author
     
+# clase que edita los blogs, UpdateView hace todo
+# donde pone 'pk' es la primary key del blog q se va a editar, asiq no se pierde nada
 class BlogUpdateView(LoginRequiredMixin, UserPassesTestMixin,UpdateView ):
     model = Blog
     fields = ['title', 'content']
@@ -99,6 +103,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView): #Pide usuario logeado p
     def get_success_url(self):
         return reverse_lazy('blogapp:blog_detail', kwargs={'pk': self.kwargs['blog_pk']})
 
+# clase del perfil de usuario, casi igual q Bloglistview
 class ProfileView(ListView):
     model = Blog
     template_name = 'blogapp/profile.html'
