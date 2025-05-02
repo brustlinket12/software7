@@ -24,6 +24,10 @@
       Eliminar Blog
     </button>
   {% endif %}
+  
+{% if object.cover_image %}
+<img src="{{ object.cover_image.url }}" alt="{{ object.title }}" class="mb-4 rounded-lg shadow-md max-w-full h-auto">
+{% endif %}
 
 
   </article>

@@ -15,6 +15,7 @@ class Blog(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     is_deleted = models.BooleanField(default=False)
+    cover_image = models.ImageField(upload_to='covers/', blank=True, null=True)
 
     objects = BlogManager()
     all_objects = models.Manager()
