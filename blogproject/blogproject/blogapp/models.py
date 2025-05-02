@@ -1,7 +1,23 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
+from PIL import Image
+from django.core.exceptions import ValidationError
 
+
+
+
+
+
+def dimension_imagen(image):
+    img = Image.open(image)
+    width, height = img.size
+
+    max_width = 800
+    max_height = 800
+
+    if width > max_width or height > max_height:
+        raise ValidationError(f"Las dimensiones de la imagen no pueden ser mayores a {max_width}x{max_height} píxeles.")
 
 # MODELOS
 
@@ -15,7 +31,7 @@ class Blog(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     is_deleted = models.BooleanField(default=False)
-    cover_image = models.ImageField(upload_to='covers/', blank=True, null=True)
+    cover_image = models.ImageField(upload_to='covers/', blank=True, null=True,validators=[dimension_imagen])
 
     objects = BlogManager()
     all_objects = models.Manager()
