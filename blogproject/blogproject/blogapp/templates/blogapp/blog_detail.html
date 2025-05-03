@@ -12,23 +12,24 @@
   <article class="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg transition-all duration-700 ease-in-out dark:text-white text-gray-900 animate-fade-in">
     <h1 class="text-3xl font-bold mb-2">{{ object.title }}</h1>
     <p class="text-gray-700 dark:text-gray-300 mb-4">{{ object.content }}</p>
-    <p class="text-sm text-gray-600 dark:text-gray-500">By {{ object.author.username }} - {{ object.created_at }}</p> 
+
+    {% if object.cover_image %}
+    <img src="{{ object.cover_image.url }}" alt="{{ object.title }}" class="mb-4 rounded-lg shadow-md max-w-full h-auto">
+    {% endif %}
+
+    <p class="text-sm text-gray-600 dark:text-gray-500 mb-4">By {{ object.author.username }} - {{ object.created_at }}</p> 
     
+
     <!-- valida si el usuario viendo es el autor y le permite borrar el blog -->
     {% if request.user == object.author %}
-    <button
-      type="button"
-      onclick="document.getElementById('deleteModal').classList.remove('hidden')"
-      class="bg-red-600 hover:bg-red-700 text-white py-1 px-3 rounded focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition-all duration-300"
-    >
-      Eliminar Blog
-    </button>
-  {% endif %}
-  
-{% if object.cover_image %}
-<img src="{{ object.cover_image.url }}" alt="{{ object.title }}" class="mb-4 rounded-lg shadow-md max-w-full h-auto">
-{% endif %}
-
+      <button
+        type="button"
+        onclick="document.getElementById('deleteModal').classList.remove('hidden')"
+        class="bg-red-600 hover:bg-red-700 text-white py-1 px-3 rounded focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition-all duration-300"
+      >
+        Eliminar Blog
+      </button>
+    {% endif %}
 
   </article>
 
