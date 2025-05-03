@@ -4,10 +4,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from PIL import Image
 from django.core.exceptions import ValidationError
 
-
-
-
-
+from tinymce.models import HTMLField
 
 def dimension_imagen(image):
     img = Image.open(image)
@@ -27,7 +24,8 @@ class BlogManager(models.Manager):
 
 class Blog(models.Model):
     title = models.CharField(max_length=200)
-    content = models.TextField(max_length=2000)
+    # content = models.TextField(max_length=2000)
+    content = HTMLField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     is_deleted = models.BooleanField(default=False)

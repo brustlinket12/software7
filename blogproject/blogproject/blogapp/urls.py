@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from .views import BlogListView, BlogDetailView, ReviewCreateView, CommentCreateView, BlogCreateView, BlogDeleteView, BlogUpdateView, ProfileView
 from .views import register, signin, signout
 from django.conf import settings
@@ -20,6 +20,8 @@ urlpatterns = [
     path('login/', signin, name='login'),
     path('logout/', signout, name='logout'),
     path('profile/', ProfileView.as_view(), name='profile'),
+
+    path('tinymce/', include('tinymce.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -207,5 +207,20 @@
         }
       }
     </script>
+
+    {% load static %}
+    <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
+    <script>
+      tinymce.init({
+        selector: 'textarea[name="content"]',
+        menubar: false,
+        plugins: 'link image preview code',
+        toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | code preview',
+        height: 400,
+        skin: document.documentElement.classList.contains("dark") ? "oxide-dark" : "oxide",
+        content_css: document.documentElement.classList.contains("dark") ? "dark" : "default"
+      });
+    </script>
+
   </body>
 </html>
