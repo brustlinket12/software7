@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import BlogListView, BlogDetailView, ReviewCreateView, CommentCreateView, BlogCreateView, BlogDeleteView, BlogUpdateView, ProfileView, PasswordChange, PasswordChangeDone
+from .views import BlogListView, BlogDetailView, ReviewCreateView, CommentCreateView, BlogCreateView, BlogDeleteView, BlogUpdateView, ProfileView, ChangePasswordView, PasswordChangeDone
 from .views import register, signin, signout
 from django.conf import settings
 from django.conf.urls.static import static
@@ -21,7 +21,7 @@ urlpatterns = [
     path('login/', signin, name='login'),
     path('logout/', signout, name='logout'),
     path('profile/', ProfileView.as_view(), name='profile'),
-    path('password-change/', PasswordChange.as_view(), name='password_change'),
+    path('password-change/', ChangePasswordView.as_view(), name='password_change'),
     path('password-change/done/', PasswordChangeDone.as_view(), name='password_change_done'),
 
     path('tinymce/', include('tinymce.urls')),

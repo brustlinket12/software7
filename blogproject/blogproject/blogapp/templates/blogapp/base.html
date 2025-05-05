@@ -116,7 +116,13 @@
             </button>
 
             <div id="userDropdown" class="hidden absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50">
+              {% comment %} PERFIL {% endcomment %}
               <a href="{% url 'blogapp:profile' %}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Perfil</a>
+
+              {% comment %} CAMBIO DE CONTRASEÑA {% endcomment %}
+              <a href="{% url 'blogapp:password_change' %}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Cambiar Contraseña</a>
+
+              {% comment %} CERRAR SESIÓN {% endcomment %}
               <form method="post" action="{% url 'blogapp:logout' %}">
                 {% csrf_token %}
                 <button type="submit" class="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700">Cerrar Sesión</button>

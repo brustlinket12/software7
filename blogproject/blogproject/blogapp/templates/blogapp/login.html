@@ -26,9 +26,23 @@
                 {% endfor %}
             </div>
 
+            {% if form.non_field_errors %}
+                <div class="text-sm text-red-600 mb-4">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+
             <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                 Iniciar Sesión
             </button>
+
+            {% comment %} FUTURO ENVÍO AL CORREO DE SOLICITUD DE CAMBIO DE CONTRASEÑA {% endcomment %}
+            {% comment %} <div class="text-center mt-4">
+                <a href="{% url 'blogapp:' %}" class="text-sm text-blue-600 hover:underline">¿Olvidaste tu contraseña?</a>
+              </div> {% endcomment %}
 
             <div class="text-center mt-4">
                 <p class="dark:text-white text-sm">¿No tienes una cuenta?</p>   

@@ -11,6 +11,7 @@ from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.db import IntegrityError
+from django.core.exceptions import ValidationError
 
 class BlogListView(ListView):
     model = Blog
@@ -164,14 +165,33 @@ def signout(request):
 
 # Cambio de Contraseña
 class ChangePasswordForm(PasswordChangeForm):
-    old_password = forms.CharField(widget=forms.PasswordInput())
-    new_password = forms.CharField(widget=forms.PasswordInput())
-    confirm_password = forms.CharField(widget=forms.PasswordInput())
-    
-class PasswordChange(PasswordChangeView):
-    form_class = PasswordChangeForm
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        new_password = cleaned_data.get('new_password')
+        confirm_password = cleaned_data.get('confirm_password')
+
+        if new_password and confirm_password:
+            if new_password != confirm_password:
+                raise ValidationError("La nueva contraseña y la confirmación no coinciden.")
+
+        return cleaned_data
+
+class ChangePasswordView(PasswordChangeView):
+    form_class = ChangePasswordForm
     success_url = reverse_lazy('blogapp:password_change_done')
     template_name = ('blogapp/password_change_form.html')
-    
+
+    def form_invalid(self, form):
+        # Si el formulario es válido, la contraseña se cambia
+        return self.render_to_response(self.get_context_data(form=form))
+
+
+    def form_invalid(self, form):
+        # Si el formulario no es válido, la página se reinicia
+        return self.render_to_response(self.get_context_data(form=form))
+
 class PasswordChangeDone(PasswordChangeDoneView):
     template_name = ('blogapp/password_change_done.html')
