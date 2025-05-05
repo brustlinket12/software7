@@ -23,7 +23,7 @@ class BlogDetailView(DetailView):
 
 class BlogCreateView(LoginRequiredMixin, CreateView):
     model = Blog
-    fields = ['title', 'content', 'cover_image']
+    fields = ['title', 'content', 'tag', 'cover_image']
     template_name = 'blog_form.html'
 
     def form_valid(self, form):
@@ -50,7 +50,7 @@ class BlogDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 # donde pone 'pk' es la primary key del blog q se va a editar, asiq no se pierde nada
 class BlogUpdateView(LoginRequiredMixin, UserPassesTestMixin,UpdateView ):
     model = Blog
-    fields = ['title', 'content']
+    fields = ['title', 'content', 'tag']
     template_name = 'blog_form.html'
 
     def get_success_url(self):

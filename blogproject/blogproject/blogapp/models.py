@@ -22,6 +22,12 @@ class BlogManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(is_deleted=False)
 
+class Tag(models.Model):
+    title = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.title}"
+
 class Blog(models.Model):
     title = models.CharField(max_length=200)
     # content = models.TextField(max_length=2000)
@@ -29,6 +35,7 @@ class Blog(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     is_deleted = models.BooleanField(default=False)
+    tag = models.ForeignKey(Tag,on_delete=models.SET_NULL, null=True, max_length=100)
     cover_image = models.ImageField(upload_to='covers/', blank=True, null=True,validators=[dimension_imagen])
 
     objects = BlogManager()

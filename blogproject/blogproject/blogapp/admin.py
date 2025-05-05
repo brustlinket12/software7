@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Blog, Review, Comment
+from .models import Blog, Tag, Review, Comment
 
 class BlogAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
@@ -7,5 +7,6 @@ class BlogAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Blog, BlogAdmin)
+admin.site.register(Tag)
 admin.site.register(Review)
 admin.site.register(Comment)
