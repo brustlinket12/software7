@@ -2,11 +2,12 @@ from django.views.generic import ListView, DetailView, CreateView, FormView, Del
 from django.urls import reverse_lazy
 from .models import Blog, Review, Comment
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django import forms
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.db import IntegrityError
@@ -159,3 +160,18 @@ def signin(request):
 def signout(request):
     logout(request)
     return redirect('blogapp:blog_list')
+
+
+# Cambio de Contraseña
+class ChangePasswordForm(PasswordChangeForm):
+    old_password = forms.CharField(widget=forms.PasswordInput())
+    new_password = forms.CharField(widget=forms.PasswordInput())
+    confirm_password = forms.CharField(widget=forms.PasswordInput())
+    
+class PasswordChange(PasswordChangeView):
+    form_class = PasswordChangeForm
+    success_url = reverse_lazy('blogapp:password_change_done')
+    template_name = ('blogapp/password_change_form.html')
+    
+class PasswordChangeDone(PasswordChangeDoneView):
+    template_name = ('blogapp/password_change_done.html')
