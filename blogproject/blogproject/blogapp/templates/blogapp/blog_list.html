@@ -17,7 +17,7 @@
         {% if blog.tag %}
         <p class="text-sm text-gray-300 dark:text-gray-300">Género: {{ blog.tag }}
         {% endif %}
-        <p class="text-white text-m" >{{blog.content}}</p>
+        <p class="text-white text-m" >{{blog.content|safe}}</p>
         <p class="text-sm text-gray-500 dark:text-gray-400">by {{ blog.author.username }} - {{ blog.created_at }}</p>
       </div>
     {% empty %}
