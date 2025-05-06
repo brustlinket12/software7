@@ -11,9 +11,16 @@
           <img src="{{ blog.cover_image.url }}" alt="{{ blog.title }}" class="mb-4 rounded-lg shadow-md max-w-full h-auto">
         {% endif %}
         
-        <h2 class="text-xl font-semibold mb-2">
-          <a href="{% url 'blogapp:blog_detail' blog.pk %}" class="text-blue-400 hover:text-blue-300">{{ blog.title }}</a>
-        </h2>
+        <div class="flex justify-between items-center mb-2">
+          <h2 class="text-xl font-semibold">
+              <a href="{% url 'blogapp:blog_detail' blog.pk %}" class="text-blue-400 hover:text-blue-300">{{ blog.title }}</a>
+          </h2>
+          {% if blog.average_rating > 0 %}
+              <span class="text-sm font-semibold text-green-500">{{ blog.average_rating|floatformat:1 }} ★</span>
+          {% else %}
+              <span class="text-sm text-gray-400">Sin reseñas</span>
+          {% endif %}
+      </div>
         {% if blog.tag %}
         <p class="text-sm text-gray-300 dark:text-gray-300">Género: {{ blog.tag }}
         {% endif %}
