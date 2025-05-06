@@ -37,7 +37,15 @@
   </article>
 
   <section class="mt-8">
-    <h2 class="text-2xl font-semibold mb-4">Reviews</h2>
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-2xl font-semibold">Reviews</h2>
+      <span>Cantidad de reseñas: {{ object.reviews.all|length }}</span>
+      {% if object.average_rating > 0 %}
+          <span class="text-xl font-semibold text-blue-600 dark:text-blue-400">{{ object.average_rating|floatformat:1 }} ★</span>
+      {% else %}
+          <span class="text-gray-400">Sin reseñas aún</span>
+      {% endif %}
+  </div>
     {% for review in object.reviews.all %}
       <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mb-4 transition-all duration-700 ease-in-out dark:text-white text-gray-900 animate-fade-in">
         <p class="text-blue-700 dark:text-blue-300 font-medium">{{ review.reviewer.username }} - {{ review.rating }}/5 ⭐</p>

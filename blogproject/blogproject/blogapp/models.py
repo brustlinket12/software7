@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from PIL import Image
 from django.core.exceptions import ValidationError
-
+from django.db.models import Avg  
 from tinymce.models import HTMLField
 
 def dimension_imagen(image):
@@ -37,6 +37,7 @@ class Blog(models.Model):
     is_deleted = models.BooleanField(default=False)
     tag = models.ForeignKey(Tag,on_delete=models.SET_NULL, null=True, max_length=100)
     cover_image = models.ImageField(upload_to='covers/', blank=True, null=True,validators=[dimension_imagen])
+    average_rating = models.FloatField(default=0)
 
     objects = BlogManager()
     all_objects = models.Manager()
@@ -48,6 +49,10 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def update_average_rating(self):
+        self.average_rating = self.reviews.aggregate(Avg('rating'))['rating__avg'] or 0
+        self.save()
 
 
 class Review(models.Model):
@@ -61,6 +66,15 @@ class Review(models.Model):
 
     def __str__(self):
         return f"{self.reviewer.username} - {self.blog.title}"
+    
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.blog.update_average_rating()
+
+    def delete(self, *args, **kwargs):
+        blog = self.blog
+        super().delete(*args, **kwargs)
+        blog.update_average_rating()
 
 
 
