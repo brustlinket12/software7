@@ -16,7 +16,7 @@
               <a href="{% url 'blogapp:blog_detail' blog.pk %}" class="text-blue-400 hover:text-blue-300">{{ blog.title }}</a>
           </h2>
           {% if blog.average_rating > 0 %}
-              <span class="text-sm font-semibold text-green-500">{{ blog.average_rating|floatformat:1 }} ★</span>
+              <span class="text-sm font-semibold text-yellow-500">{{ blog.average_rating|floatformat:1 }} ★</span>
           {% else %}
               <span class="text-sm text-gray-400">Sin reseñas</span>
           {% endif %}

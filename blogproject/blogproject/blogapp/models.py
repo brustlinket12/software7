@@ -10,8 +10,8 @@ def dimension_imagen(image):
     img = Image.open(image)
     width, height = img.size
 
-    max_width = 800
-    max_height = 800
+    max_width = 300
+    max_height = 300
 
     if width > max_width or height > max_height:
         raise ValidationError(f"Las dimensiones de la imagen no pueden ser mayores a {max_width}x{max_height} píxeles.")
