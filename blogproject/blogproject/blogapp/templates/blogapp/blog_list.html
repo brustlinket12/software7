@@ -11,19 +11,9 @@
           <img src="{{ blog.cover_image.url }}" alt="{{ blog.title }}" class="mb-4 rounded-lg shadow-md max-w-full h-auto">
         {% endif %}
         
-        <div class="flex justify-between items-center mb-2">
-          <h2 class="text-xl font-semibold">
-              <a href="{% url 'blogapp:blog_detail' blog.pk %}" class="text-blue-400 hover:text-blue-300">{{ blog.title }}</a>
-          </h2>
-          {% if blog.average_rating > 0 %}
-              <span class="text-sm font-semibold text-yellow-500">{{ blog.average_rating|floatformat:1 }} ★</span>
-          {% else %}
-              <span class="text-sm text-gray-400">Sin reseñas</span>
-          {% endif %}
-      </div>
-        {% if blog.tag %}
-        <p class="text-sm text-gray-300 dark:text-gray-300">Género: {{ blog.tag }}
-        {% endif %}
+        <h2 class="text-xl font-semibold mb-2">
+          <a href="{% url 'blogapp:blog_detail' blog.pk %}" class="text-blue-400 hover:text-blue-300">{{ blog.title }}</a>
+        </h2>
         <p class="text-white text-m" >{{blog.content|safe}}</p>
         <p class="text-sm text-gray-500 dark:text-gray-400">by {{ blog.author.username }} - {{ blog.created_at }}</p>
       </div>
@@ -31,4 +21,30 @@
       <p class="text-gray-500 dark:text-gray-400 text-center">No blogs have been posted yet.</p>
     {% endfor %}
   </div>
+  <!-- Paginación -->
+<div class="mt-10 flex justify-center items-center gap-4">
+  {% if page_obj.has_previous %}
+    <a href="?page=1" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200">&laquo; Primera</a>
+    <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200">&lsaquo; Anterior</a>
+  {% endif %}
+
+  {% for num in page_obj.paginator.page_range %}
+    {% if page_obj.number == num %}
+      <span class="px-3 py-1 bg-blue-500 text-white rounded">{{ num }}</span>
+    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+      <a href="?page={{ num }}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200">{{ num }}</a>
+    {% endif %}
+  {% endfor %}
+
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200">Siguiente &rsaquo;</a>
+    <a href="?page={{ page_obj.paginator.num_pages }}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200">Última &raquo;</a>
+  {% endif %}
+</div>
+
 {% endblock %}
+
+
+
+
+

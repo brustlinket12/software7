@@ -4,6 +4,8 @@ from .views import register, signin, signout
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views
+from .views import blog_list_view
+
 
 from django.contrib import admin
 
@@ -11,7 +13,7 @@ app_name = 'blogapp'
 
 
 urlpatterns = [
-    path('', BlogListView.as_view(), name='blog_list'),
+    path('', blog_list_view, name='blog_list'),
     path('blog/add/', BlogCreateView.as_view(), name='add_blog'),
     path('blog/<int:pk>/', BlogDetailView.as_view(), name='blog_detail'),
     path('blog/<int:pk>/review/', ReviewCreateView.as_view(), name='add_review'),

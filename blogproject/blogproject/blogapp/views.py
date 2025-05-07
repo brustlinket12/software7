@@ -12,6 +12,10 @@ from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.db import IntegrityError
 from django.core.exceptions import ValidationError
+from django.core.paginator import Paginator
+from django.shortcuts import render
+from .models import Blog
+
 
 class BlogListView(ListView):
     model = Blog
@@ -195,3 +199,11 @@ class ChangePasswordView(PasswordChangeView):
 
 class PasswordChangeDone(PasswordChangeDoneView):
     template_name = ('blogapp/password_change_done.html')
+
+    
+def blog_list_view(request):
+    blog_list = Blog.objects.all()
+    paginator = Paginator(blog_list, 5)  # 5 blogs por página
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'blog_list.html', {'page_obj': page_obj, 'object_list': page_obj})
