@@ -149,14 +149,15 @@ TINYMCE_DEFAULT_CONFIG = {
     "language": "es_ES",  # To force a specific language instead of the Django current language.
 }
 TINYMCE_SPELLCHECKER = True
-TINYMCE_COMPRESSOR = True
-TINYMCE_EXTRA_MEDIA = {
-    'css': {
-        'all': [
-            ...
-        ],
-    },
-    'js': [
-        ...
-    ],
-}
+TINYMCE_COMPRESSOR = False
+
+#TINYMCE_EXTRA_MEDIA = {
+#    'css': {
+#        'all': [
+#            ...
+#        ],
+#    },
+#    'js': [
+#        ...
+#    ],
+#}

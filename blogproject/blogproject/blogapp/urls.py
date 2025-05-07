@@ -5,6 +5,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views
 
+from django.contrib import admin
+
 app_name = 'blogapp'
 
 
@@ -24,6 +26,7 @@ urlpatterns = [
     path('password-change/', ChangePasswordView.as_view(), name='password_change'),
     path('password-change/done/', PasswordChangeDone.as_view(), name='password_change_done'),
 
+    path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
 ]
 if settings.DEBUG:

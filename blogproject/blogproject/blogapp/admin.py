@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Blog, Tag, Review, Comment
+from tinymce.widgets import TinyMCE
 
 class BlogAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
