@@ -1,7 +1,7 @@
+{% load static tailwind_tags %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" class="scroll-smooth">
   <head>
-    
     
     <script> // forzar el tema oscuro antes de todo
       (function () {
@@ -15,7 +15,85 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>🎧 Rate.it</title>
+
+
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      :root {
+        --bg-color:rgb(72, 149, 233)
+        --text-color: #222;
+        --header-bg-light: #222;
+        --header-bg-dark: #333;
+      }
+
+      .dark {
+        --bg-color:rgb(155, 37, 37);
+        --text-color: #fff;
+        --header-bg-light: rgb(76, 118, 162);
+        --header-bg-dark: #222;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+      }
+
+      header, nav {
+        background-color: var(--header-bg-light);
+      }
+
+      .dark header, .dark nav {
+        background-color: var(--header-bg-dark);
+      }
+
+      main {
+        position: relative;  /* Necesario para que z-index funcione */
+        z-index: 1;  /* Asegúrate de que sea mayor que el del visualizador */
+      }
+      
+
+      .visualizer {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+        pointer-events: none;
+        display: flex;
+        gap: 3px;
+      }
+      
+      .visualizer span {
+        width: 2px;
+        height: 150px;
+        background: var(--bar-color);
+        margin: 0 4px;
+        display: inline-block;
+        animation: bounce 1s infinite ease-in-out;
+        transform-origin: center; /* cambia de bottom a center */
+      }
+      
+      
+      @keyframes bounce {
+        0%, 100% {
+          transform: scaleY(1);  /* más pequeñas */
+        }
+        50% {
+          transform: scaleY(3.1);  /* más grandes */
+        }
+      }
+
+  :root {
+    --bar-color:rgb(5, 61, 180); /* azul clarito para modo claro */
+  }
+
+  .dark {
+    --bar-color:rgb(8, 7, 7); /* cian/azul claro para modo oscuro */
+  }
+
+    </style>
+
     <script>
       tailwind.config = {
         darkMode: "class",
@@ -69,15 +147,16 @@
 
   <body
     id="body"
-    class="flex flex-col min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white font-sans transition-all duration-700 ease-in-out"
+    class="flex flex-col min-h-screen font-sans transition-all duration-700 ease-in-out"
   >
+  
     <nav
-      class="bg-white dark:bg-gradient-to-r dark:from-gray-900 dark:to-gray-700 shadow-md py-4 px-6 transition-colors"
+      class="py-4 px-6 transition-colors bg-blue-400 text-gray-800 dark:bg-[#333] dark:text-white shadow-md"
     >
       <div class="max-w-6xl mx-auto flex justify-between items-center">
         <a
           href="{% url 'blogapp:blog_list' %}"
-          class="text-gray-900 dark:text-white text-2xl font-semibold tracking-wider transition-colors"
+          class="text-2xl font-semibold tracking-wider text-white"
           >Rate.it</a
         >
         <!-- Barra de búsqueda -->
@@ -93,7 +172,7 @@
         <div class="flex items-center space-x-4">
           <button
             onclick="toggleDarkMode()"
-            class="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 text-gray-900 dark:text-white hover:scale-105 transition-all duration-300 shadow-lg"
+            class="flex items-center gap-2 px-4 py-2 rounded-full"
           >
             <span
               id="theme-icon"
@@ -165,12 +244,18 @@
       </div>
     </nav>
     <main
-      class="flex-grow w-full bg-white dark:bg-gray-900 transition-all duration-700 ease-in-out"
+      class="flex-grow w-full transition-all duration-700 ease-in-out"
     >
       <div class="max-w-4xl mx-auto px-4 py-8">
         {% block content %}{% endblock %}
       </div>
     </main>
+
+    <footer class="bg-[#1a1a1a] dark:bg-[#0d0d0d] text-white py-4 px-6 transition-colors duration-500">
+      <div class="max-w-4xl mx-auto text-center text-sm">
+        © 2025 Rate.it – Todos los derechos reservados.
+      </div>
+    </footer>
 
     <script>
 
@@ -237,6 +322,119 @@
         content_css: document.documentElement.classList.contains("dark") ? "dark" : "default"
       });
     </script>
+
+    <div class="visualizer absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none flex gap-[2px]">
+      <span class="bar" style="animation-delay: 0s;"></span>
+      <span class="bar" style="animation-delay: 0.1s;"></span>
+      <span class="bar" style="animation-delay: 0.5s;"></span>
+      <span class="bar" style="animation-delay: 0.3s;"></span>
+      <span class="bar" style="animation-delay: 0.4s;"></span>
+      <span class="bar" style="animation-delay: 0.7s;"></span>
+      <span class="bar" style="animation-delay: 0.6s;"></span>
+      <span class="bar" style="animation-delay: 0.7s;"></span>
+      <span class="bar" style="animation-delay: 0.9s;"></span>
+      <span class="bar" style="animation-delay: 0.3s;"></span>
+      <span class="bar" style="animation-delay: 0s;"></span>
+      <span class="bar" style="animation-delay: 0.1s;"></span>
+      <span class="bar" style="animation-delay: 0.5s;"></span>
+      <span class="bar" style="animation-delay: 0.3s;"></span>
+      <span class="bar" style="animation-delay: 0.4s;"></span>
+      <span class="bar" style="animation-delay: 0.3s;"></span>
+      <span class="bar" style="animation-delay: 0.6s;"></span>
+      <span class="bar" style="animation-delay: 0.2s;"></span>
+      <span class="bar" style="animation-delay: 0.8s;"></span>
+      <span class="bar" style="animation-delay: 0.9s;"></span>
+      <span class="bar" style="animation-delay: 0s;"></span>
+      <span class="bar" style="animation-delay: 0.9s;"></span>
+      <span class="bar" style="animation-delay: 0.2s;"></span>
+      <span class="bar" style="animation-delay: 0.3s;"></span>
+      <span class="bar" style="animation-delay: 0.6s;"></span>
+      <span class="bar" style="animation-delay: 0.5s;"></span>
+      <span class="bar" style="animation-delay: 0.7s;"></span>
+      <span class="bar" style="animation-delay: 0.1s;"></span>
+      <span class="bar" style="animation-delay: 0.3s;"></span>
+      <span class="bar" style="animation-delay: 0.9s;"></span>
+      <span class="bar" style="animation-delay: 0s;"></span>
+      <span class="bar" style="animation-delay: 0.6s;"></span>
+      <span class="bar" style="animation-delay: 0.2s;"></span>
+      <span class="bar" style="animation-delay: 0.4s;"></span>
+      <span class="bar" style="animation-delay: 0.4s;"></span>
+      <span class="bar" style="animation-delay: 0.1s;"></span>
+      <span class="bar" style="animation-delay: 0.6s;"></span>
+      <span class="bar" style="animation-delay: 0.7s;"></span>
+      <span class="bar" style="animation-delay: 0.8s;"></span>
+      <span class="bar" style="animation-delay: 0.6s;"></span>
+      <span class="bar" style="animation-delay: 0s;"></span>
+      <span class="bar" style="animation-delay: 0.4s;"></span>
+      <span class="bar" style="animation-delay: 0.6s;"></span>
+      <span class="bar" style="animation-delay: 0.3s;"></span>
+      <span class="bar" style="animation-delay: 0.8s;"></span>
+      <span class="bar" style="animation-delay: 0.5s;"></span>
+      <span class="bar" style="animation-delay: 0.9s;"></span>
+      <span class="bar" style="animation-delay: 0.7s;"></span>
+      <span class="bar" style="animation-delay: 0.2s;"></span>
+      <span class="bar" style="animation-delay: 0.9s;"></span>
+      <span class="bar" style="animation-delay: 0s;"></span>
+      <span class="bar" style="animation-delay: 0.1s;"></span>
+      <span class="bar" style="animation-delay: 0.2s;"></span>
+      <span class="bar" style="animation-delay: 0.8s;"></span>
+      <span class="bar" style="animation-delay: 0.1s;"></span>
+      <span class="bar" style="animation-delay: 0.4s;"></span>
+      <span class="bar" style="animation-delay: 0s;"></span>
+      <span class="bar" style="animation-delay: 0.1s;"></span>
+      <span class="bar" style="animation-delay: 0.8s;"></span>
+      <span class="bar" style="animation-delay: 0.7s;"></span>
+      <span class="bar" style="animation-delay: 0s;"></span>
+      <span class="bar" style="animation-delay: 0.1s;"></span>
+      <span class="bar" style="animation-delay: 0.4s;"></span>
+      <span class="bar" style="animation-delay: 0.3s;"></span>
+      <span class="bar" style="animation-delay: 0.7s;"></span>
+      <span class="bar" style="animation-delay: 0.5s;"></span>
+      <span class="bar" style="animation-delay: 0.6s;"></span>
+      <span class="bar" style="animation-delay: 0.8s;"></span>
+      <span class="bar" style="animation-delay: 0.2s;"></span>
+      <span class="bar" style="animation-delay: 0.9s;"></span>
+      <span class="bar" style="animation-delay: 0s;"></span>
+      <span class="bar" style="animation-delay: 0.1s;"></span>
+      <span class="bar" style="animation-delay: 0.2s;"></span>
+      <span class="bar" style="animation-delay: 0.1s;"></span>
+      <span class="bar" style="animation-delay: 0.3s;"></span>
+      <span class="bar" style="animation-delay: 0.5s;"></span>
+      <span class="bar" style="animation-delay: 0.2s;"></span>
+      <span class="bar" style="animation-delay: 0.7s;"></span>
+      <span class="bar" style="animation-delay: 0.4s;"></span>
+      <span class="bar" style="animation-delay: 0.9s;"></span>
+      <span class="bar" style="animation-delay: 0s;"></span>
+      <span class="bar" style="animation-delay: 0.1s;"></span>
+      <span class="bar" style="animation-delay: 0.6s;"></span>
+      <span class="bar" style="animation-delay: 0.3s;"></span>
+      <span class="bar" style="animation-delay: 0.4s;"></span>
+      <span class="bar" style="animation-delay: 0.2s;"></span>
+      <span class="bar" style="animation-delay: 0.6s;"></span>
+      <span class="bar" style="animation-delay: 0.1s;"></span>
+      <span class="bar" style="animation-delay: 0.3s;"></span>
+      <span class="bar" style="animation-delay: 0.7s;"></span>
+      <span class="bar" style="animation-delay: 0s;"></span>
+      <span class="bar" style="animation-delay: 0.1s;"></span>
+      <span class="bar" style="animation-delay: 0.3s;"></span>
+      <span class="bar" style="animation-delay: 0.6s;"></span>
+      <span class="bar" style="animation-delay: 0.4s;"></span>
+      <span class="bar" style="animation-delay: 0.5s;"></span>
+      <span class="bar" style="animation-delay: 0.2s;"></span>
+      <span class="bar" style="animation-delay: 0.7s;"></span>
+      <span class="bar" style="animation-delay: 0.3s;"></span>
+      <span class="bar" style="animation-delay: 0.9s;"></span>
+      <span class="bar" style="animation-delay: 0.5s;"></span>
+      <span class="bar" style="animation-delay: 0.6s;"></span>
+      <span class="bar" style="animation-delay: 0.7s;"></span>
+      <span class="bar" style="animation-delay: 0.8s;"></span>
+      <span class="bar" style="animation-delay: 0.1s;"></span>
+      <span class="bar" style="animation-delay: 0.5s;"></span>
+      <span class="bar" style="animation-delay: 0.8s;"></span>
+    </div>
+    
+    
+    
 
   </body>
 </html>

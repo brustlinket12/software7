@@ -221,3 +221,8 @@ def blog_list_view(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'blog_list.html', {'page_obj': page_obj, 'object_list': page_obj})
+
+def my_view(request):
+    # Generamos una lista de números del 0 al 59
+    range_numbers = list(range(60))
+    return render(request, 'tu_template.html', {'range_numbers': range_numbers})

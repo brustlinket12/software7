@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'blogapp',
     'widget_tweaks',
     'tinymce',
+    'tailwind'
 ]
 
 MIDDLEWARE = [
@@ -161,3 +162,5 @@ TINYMCE_COMPRESSOR = False
 #        ...
 #    ],
 #}
+
+TAILWIND_APP_NAME = 'blogapp'
