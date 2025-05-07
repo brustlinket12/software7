@@ -80,6 +80,16 @@
           class="text-gray-900 dark:text-white text-2xl font-semibold tracking-wider transition-colors"
           >Rate.it</a
         >
+        <!-- Barra de búsqueda -->
+        <div class="flex items-center">
+          <form method="get" class="flex items-center space-x-1" action="">
+              <input type="text" class="block text-sm font-medium text-gray-900" placeholder="Buscar" name="busqueda" value="{{ request.GET.busqueda}}">
+              <span class="input-group-list"> 
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white dark:bg-blue-600 dark:hover:bg-blue-700 dark:text-white font-medium py-1 px-3 rounded transition-all duration-500 ease-in-out">Buscar</button>
+                </span>
+          </form>
+        </div>
+
         <div class="flex items-center space-x-4">
           <button
             onclick="toggleDarkMode()"
@@ -164,7 +174,7 @@
 
     <script>
 
-      //los cambios comentados aqui abajo son para que el boton que cambia de teme
+      //los cambios comentados aqui abajo son para que el boton que cambia de tema
       //funcione junto con el coso al tope de arriba q forza el tema oscuro
       //solo fue cambiar que pinte el body a que pinte el html en si
 

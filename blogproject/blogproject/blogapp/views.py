@@ -11,6 +11,7 @@ from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.db import IntegrityError
+from django.db.models import Q
 from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator
 from django.shortcuts import render
@@ -202,7 +203,20 @@ class PasswordChangeDone(PasswordChangeDoneView):
 
     
 def blog_list_view(request):
-    blog_list = Blog.objects.all()
+    query = request.GET.get('busqueda')
+    if query:
+        if query.startswith('#'):
+            tag = query[1:]
+            if tag:
+                blog_list = Blog.objects.filter(tag__title__icontains=tag).distinct()
+            else:
+                blog_list = Blog.objects.all()
+        else:
+            blog_list = Blog.objects.filter(
+            Q(title__icontains=query) | Q(content__icontains=query)).distinct()
+    else:
+        blog_list = Blog.objects.all()
+
     paginator = Paginator(blog_list, 5)  # 5 blogs por página
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
