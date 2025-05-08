@@ -5,7 +5,7 @@
     <!-- esto es pq el uptadeview utiliza este mismo form | cambia el titulo de la pagina-->
     {% if form.instance.pk %}Editar Blog{% else %}Crear un Nuevo Blog{% endif %}
   </h1>
-  <form method="post" class="space-y-4 transition-all duration-700 ease-in-out animate-fade-in" enctype="multipart/form-data">{% csrf_token %}
+  <form method="post" class="tinymce-enabled-form space-y-4 transition-all duration-700 ease-in-out animate-fade-in" enctype="multipart/form-data">{% csrf_token %}
     <div class="space-y-2 transition-all duration-700 ease-in-out">
       
       {% for field in form %}

@@ -291,7 +291,7 @@
     <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
     <script>
       tinymce.init({
-        selector: 'textarea[name="content"]',
+        selector: 'form.tinymce-enabled-form textarea[name="content"]',
         menubar: false,
         plugins: 'link image preview code',
         toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | code preview',
