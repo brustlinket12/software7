@@ -2,12 +2,12 @@
 
 {% block content %}
   <div class="bg-blue-400 dark:bg-[#333] text-white dark:text-white pb-3 rounded-lg shadow-lg mb-2">
-    <h1 class="text-5xl font-bold text-center">¡Blogs!</h1>
+    <h1 class="text-4xl font-bold text-center">¡Loren Ipsun!</h1>
   </div>
 
   <div class="grid gap-6">
     {% for blog in object_list %}
-      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-700 ease-in-out dark:text-white text-gray-900 animate-fade-in">
+      <div class="bg-[#faf8ff] dark:bg-[#333] rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-700 ease-in-out dark:text-white text-gray-900 animate-fade-in">
         
         <!-- Mostrar la imagen si existe -->
         {% if blog.cover_image %}
@@ -16,7 +16,7 @@
         
         <div class="flex justify-between items-center mb-2">
           <h2 class="text-xl font-semibold mb-2">
-            <a href="{% url 'blogapp:blog_detail' blog.pk %}" class="text-blue-400 hover:text-blue-300">{{ blog.title }}</a>
+            <a href="{% url 'blogapp:blog_detail' blog.pk %}" class="text-blue-400 hover:text-blue-300 dark:text-[#ff0099] dark:hover:text-[#99005c]">{{ blog.title }}</a>
           </h2>
           {% if object.average_rating > 0 %}
             <span class="text-xl font-semibold text-blue-600 dark:text-blue-400">{{ object.average_rating|floatformat:1 }} ★</span>
