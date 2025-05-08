@@ -21,22 +21,14 @@
 
     <style>
       :root {
-<<<<<<< Updated upstream
         --bg-color:rgba(255, 255, 255, 0.51);
-=======
-        --bg-color:rgb(245, 241, 241);
->>>>>>> Stashed changes
         --text-color: #222;
         --header-bg-light: #222;
         --header-bg-dark: #333;
       }
 
       .dark {
-<<<<<<< Updated upstream
         --bg-color:rgba(112, 0, 0, 0.62);
-=======
-        --bg-color:rgb(43, 41, 41);
->>>>>>> Stashed changes
         --text-color: #fff;
         --header-bg-light: rgb(76, 118, 162);
         --header-bg-dark: #222;
@@ -75,26 +67,17 @@
         transform: translate(-50%, -50%);
         z-index: -1;
         pointer-events: none;
-<<<<<<< Updated upstream
         display: flex;
         gap: 2px;
-=======
-        display: fill;
-        gap: 3px;
->>>>>>> Stashed changes
       }
       
       .visualizer span {
-        width: 7px;
+        width: 2px;
         height: 150px;
         background: var(--bar-color);
         margin: 0 4px;
         display: inline-block;
-<<<<<<< Updated upstream
         animation: bounce 3s infinite ease-in-out;
-=======
-        animation: bounce 2.5s infinite ease-in-out;
->>>>>>> Stashed changes
         transform-origin: center; /* cambia de bottom a center */
       }
       
@@ -109,19 +92,11 @@
       }
 
   :root {
-<<<<<<< Updated upstream
     --bar-color:rgb(9, 86, 158); /* azul clarito para modo claro */
   }
 
   .dark {
     --bar-color:rgb(0, 0, 0); /* cian/azul claro para modo oscuro */
-=======
-    --bar-color:rgb(73, 137, 206); /* azul clarito para modo claro */
-  }
-
-  .dark {
-    --bar-color:rgb(255, 0, 128); /* cian/azul claro para modo oscuro */
->>>>>>> Stashed changes
   }
 
     </style>
@@ -194,7 +169,7 @@
           {% if user.is_authenticated %}
           <a
             href="{% url 'blogapp:add_blog' %}"
-            class="bg-blue-500 hover:bg-blue-600 text-white dark:bg-[#ff0099] dark:hover:bg-[#99005c] dark:text-white font-medium py-2 px-4 rounded transition-all duration-500 ease-in-out"
+            class="bg-blue-500 hover:bg-blue-600 text-white dark:bg-blue-600 dark:hover:bg-blue-700 dark:text-white font-medium py-2 px-4 rounded transition-all duration-500 ease-in-out"
             >Nuevo blog</a
           >
           {% endif %}
@@ -203,7 +178,7 @@
 
           {% if user.is_authenticated %}
           <div class="relative inline-block text left">
-            <button id="userMenuButton" class="w-10 h-10 rounded-full bg-blue-500 hover:text-blue-300 dark:bg-[#ff0099] dark:hover:text-[#99005c] text-white flex items-center justify-center font-bold focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button id="userMenuButton" class="w-10 h-10 rounded-full bg-blue-800 text-white flex items-center justify-center font-bold focus:outline-none focus:ring-2 focus:ring-blue-500">
               {{ user.username|slice:":1"|upper }}
             </button>
 
