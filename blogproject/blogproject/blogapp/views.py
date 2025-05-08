@@ -16,6 +16,7 @@ from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from .models import Blog
+from django.http import HttpResponseForbidden
 
 
 class BlogListView(ListView):
@@ -96,6 +97,30 @@ class ReviewCreateView(LoginRequiredMixin, CreateView): #Pide usuario logeado pa
         messages.error(self.request, 'Ya has dejado una reseña para esta publicación.')
         return redirect(self.get_success_url())
 
+class ReviewUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Review
+    fields = ['rating', 'comment']
+    template_name = 'blogapp/review_form.html'
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(Review, pk=self.kwargs['review_pk'])
+
+
+    def get_success_url(self):
+        return reverse_lazy('blogapp:blog_detail', kwargs={'pk': self.object.blog.pk})
+
+    def test_func(self):
+        return self.request.user == self.get_object().reviewer
+    
+def delete_review(request, blog_pk, review_pk):
+    review = get_object_or_404(Review, pk=review_pk, blog_id=blog_pk)
+
+    if request.user == review.reviewer:
+        review.is_deleted = True  # Cambia el estado a eliminado
+        review.save()
+        return redirect('blogapp:blog_detail', pk=blog_pk)
+    else:
+        return HttpResponseForbidden("No tienes permiso para eliminar esta reseña.")
 
 class CommentCreateView(LoginRequiredMixin, CreateView): #Pide usuario logeado para crear review
     model = Comment

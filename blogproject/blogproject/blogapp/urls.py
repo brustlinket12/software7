@@ -4,7 +4,10 @@ from .views import register, signin, signout
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views
-from .views import blog_list_view
+from .views import blog_list_view, delete_review
+from blogapp.views import ReviewUpdateView
+
+
 
 
 from django.contrib import admin
@@ -20,6 +23,8 @@ urlpatterns = [
     path('blog/<int:blog_pk>/review/<int:review_pk>/comment/', CommentCreateView.as_view(), name='add_comment'),
     path('blog/<int:pk>/delete/', BlogDeleteView.as_view(), name='delete_blog'),
     path('blog/<int:pk>/edit/', BlogUpdateView.as_view(), name='blog_update'),
+    path('blog/<int:blog_pk>/review/<int:review_pk>/edit/', ReviewUpdateView.as_view(), name='edit_review'),
+    path('blog/<int:blog_pk>/review/<int:review_pk>/delete/', delete_review, name='delete_review'),
 
     path('register/', register, name='create_user'),
     path('login/', signin, name='login'),

@@ -46,20 +46,61 @@
           <span class="text-gray-400">Sin reseñas aún</span>
       {% endif %}
   </div>
-    {% for review in object.reviews.all %}
-      <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mb-4 transition-all duration-700 ease-in-out dark:text-white text-gray-900 animate-fade-in">
-        <p class="text-blue-700 dark:text-blue-300 font-medium">{{ review.reviewer.username }} - {{ review.rating }}/5 ⭐</p>
-        <p class="text-gray-700 dark:text-gray-300">{{ review.comment }}</p>
-        <a href="{% url 'blogapp:add_comment' blog_pk=object.pk review_pk=review.pk %}" class="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 mt-2 inline-block">Añadir Comentario</a>
-        <ul class="mt-2 list-disc ml-6 text-gray-600 dark:text-gray-400">
-          {% for comment in review.comments.all %}
-            <li><span class="font-semibold text-gray-900 dark:text-white">{{ comment.commenter.username }}</span>: {{ comment.content }}</li>
-          {% endfor %}
-        </ul>
-      </div>
+  {% for review in object.reviews.all %}
+    <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mb-4 transition-all duration-700 ease-in-out dark:text-white text-gray-900 animate-fade-in">
+      <p class="text-blue-700 dark:text-blue-300 font-medium">{{ review.reviewer.username }} - {{ review.rating }}/5 ⭐</p>
+      <p class="text-gray-700 dark:text-gray-300">{{ review.comment }}</p>
+
+      <!-- Enlace para añadir comentario -->
+      <a href="{% url 'blogapp:add_comment' blog_pk=object.pk review_pk=review.pk %}" class="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 mt-2 inline-block">Añadir Comentario</a>
+
+      <!-- Comentarios a la reseña -->
+      <ul class="mt-2 list-disc ml-6 text-gray-600 dark:text-gray-400">
+        {% for comment in review.comments.all %}
+          <li><span class="font-semibold text-gray-900 dark:text-white">{{ comment.commenter.username }}</span>: {{ comment.content }}</li>
+        {% endfor %}
+      </ul>
+
+      <!-- Mostrar solo si el usuario actual es el autor de la reseña -->
+      {% if request.user == review.reviewer %}
+        <div class="mt-2">
+          <a href="{% url 'blogapp:edit_review' blog_pk=object.pk review_pk=review.pk %}" class="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 mr-4">Editar</a>
+          <!-- Botón que abre el modal específico de la reseña -->
+          <button
+          type="button"
+          onclick="document.getElementById('deleteReviewModal-{{ review.pk }}').classList.remove('hidden')"
+          class="text-sm text-red-600 dark:text-red-400 hover:text-red-500 dark:hover:text-red-300"
+          >
+          Eliminar
+          </button>
+
+          <div id="deleteReviewModal-{{ review.pk }}" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
+            <div class="bg-white dark:bg-gray-800 p-6 rounded shadow-lg max-w-md w-full text-center">
+              <h2 class="text-xl font-semibold text-red-600 mb-4">¿Estás seguro?</h2>
+              <p class="mb-4 text-gray-700 dark:text-gray-300">Esta acción no se puede deshacer.</p>
+          
+              <form method="post" action="{% url 'blogapp:delete_review' blog_pk=object.pk review_pk=review.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded mr-2">
+                  Sí, eliminar
+                </button>
+                <button
+                  type="button"
+                  onclick="document.getElementById('deleteReviewModal-{{ review.pk }}').classList.add('hidden')"
+                  class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded"
+                >
+                  Cancelar
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
     {% empty %}
-      <p class="text-gray-400">No reviews yet. Be the first to add one.</p>
-    {% endfor %}
+    <p class="text-gray-400">No reviews yet. Be the first to add one.</p>
+  {% endfor %}
+
     <a href="{% url 'blogapp:add_review' object.pk %}" class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition-colors">Añade una Review</a>
 
 

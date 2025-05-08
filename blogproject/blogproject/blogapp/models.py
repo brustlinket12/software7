@@ -54,6 +54,10 @@ class Blog(models.Model):
         self.average_rating = self.reviews.aggregate(Avg('rating'))['rating__avg'] or 0
         self.save()
 
+class ReviewManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_deleted=False)
+
 
 class Review(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='reviews')
@@ -61,6 +65,12 @@ class Review(models.Model):
     rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+    is_deleted = models.BooleanField(default=False)
+
+    objects = ReviewManager()
+    all_objects = models.Manager()
+
     class Meta:
         unique_together = ('blog', 'reviewer')
 
