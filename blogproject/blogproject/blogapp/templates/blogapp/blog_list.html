@@ -18,6 +18,9 @@
           <h2 class="text-xl font-semibold mb-2">
             <a href="{% url 'blogapp:blog_detail' blog.pk %}" class="text-blue-400 hover:text-blue-300">{{ blog.title }}</a>
           </h2>
+          {% if blog.tag %}
+    <p class="text-sm text-gray-300 dark:text-gray-300">Género: {{ blog.tag }}
+    {% endif %}
           {% if object.average_rating > 0 %}
             <span class="text-xl font-semibold text-blue-600 dark:text-blue-400">{{ object.average_rating|floatformat:1 }} ★</span>
            {% else %}
