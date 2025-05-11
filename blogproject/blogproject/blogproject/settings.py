@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -164,3 +165,14 @@ TINYMCE_COMPRESSOR = False
 #}
 
 TAILWIND_APP_NAME = 'blogapp'
+
+
+JAZZMIN_SETTINGS = {
+    "theme": "darkly",
+    "site_title": "Rate.it Admin",
+    "site_header": "Rate.it Admin Portal",
+    "welcome_sign": "Bienvenido al panel de administración de Rate.it",
+    "copyright": "Rate.it",
+
+    "show_ui_builder": True,
+}
