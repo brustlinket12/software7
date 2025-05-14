@@ -10,9 +10,13 @@
     </div>
     <script>
       setTimeout(function() {
+        // Selecciona el div que contiene los mensajes
         const messagesDiv = document.querySelector('.mb-4');
+        // Verifica si el div de mensajes existe en el DOM
         if (messagesDiv) {
+          // Añade clases de Tailwind CSS para iniciar una transición de opacidad a 0 en 500ms
           messagesDiv.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+          // Después de 500ms (la duración de la transición), remueve el elemento del DOM
           setTimeout(function() {
             messagesDiv.remove();
           }, 500);
@@ -116,25 +120,27 @@
     {% else %}
     <p class="text-gray-600 dark:text-gray-400 mt-4">Debes <a href="{% url 'blogapp:login' %}" class="text-blue-600 dark:text-blue-400 hover:underline">iniciar sesión</a> para añadir una review.</p>
   {% endif %}
-    <div id="deleteModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
-      <div class="bg-white dark:bg-gray-800 p-6 rounded shadow-lg max-w-md w-full text-center">
-        <h2 class="text-xl font-semibold text-red-600 mb-4">¿Estás seguro?</h2>
-        <p class="mb-4 text-gray-700 dark:text-gray-300">Esta acción no se puede deshacer.</p>
-    
-        <form method="post" action="{% url 'blogapp:delete_blog' object.pk %}">
-          {% csrf_token %}
-          <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded mr-2">
-            Sí, eliminar
-          </button>
-          <button
-            type="button"
-            onclick="document.getElementById('deleteModal').classList.add('hidden')"
-            class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded"
-          >
-            Cancelar
-          </button>
-        </form>
-      </div>
+  <!-- Modal de confirmación para eliminar una entrada del blog.
+   Pregunta al usuario si está seguro y ofrece opciones para confirmar o cancelar la eliminación. -->
+  <div id="deleteModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded shadow-lg max-w-md w-full text-center">
+      <h2 class="text-xl font-semibold text-red-600 mb-4">¿Estás seguro?</h2>
+      <p class="mb-4 text-gray-700 dark:text-gray-300">Esta acción no se puede deshacer.</p>
+
+      <form method="post" action="{% url 'blogapp:delete_blog' object.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded mr-2">
+          Sí, eliminar
+        </button>
+        <button
+          type="button"
+          onclick="document.getElementById('deleteModal').classList.add('hidden')"
+          class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded"
+        >
+          Cancelar
+        </button>
+      </form>
     </div>
-  </section>
+  </div>
+</section>
 {% endblock %}
