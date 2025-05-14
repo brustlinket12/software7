@@ -65,7 +65,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        z-index: 0;
+        z-index: -5;
         pointer-events: none;
         display: flex;
         gap: 2px;
@@ -96,9 +96,13 @@
   }
 
   .dark {
-    --bar-color:rgb(189, 175, 143);
+    --bar-color:rgb(255, 255, 255);
   }
 
+  .SearchBar  input{
+    height: 30px;
+    width: 600px;
+  }
     </style>
 
     <script>
@@ -128,7 +132,7 @@
           >Rate.it</a
         >
         <!-- Barra de búsqueda -->
-        <div class="flex items-center">
+        <div class="flex items-center SearchBar">
           <form method="get" action="" class="flex items-center space-x-2 bg-white rounded-full px-2 py-1 shadow-sm border border-gray-200">
               <input 
                 type="text" 
@@ -227,7 +231,82 @@
       <div class="max-w-4xl mx-auto px-4 py-8">
         {% block content %}{% endblock %}
       </div>
-          <div class="visualizer absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none flex gap-[2px]">
+    </main>
+    
+    <footer class="bg-[#5ab5ea] dark:bg-[#333] text-white py-4 px-6 transition-colors duration-500">
+      <div class="max-w-4xl mx-auto text-center text-sm">
+        © 2025 Rate.it – Todos los derechos reservados.
+      </div>
+    </footer>
+
+    <script>
+
+      //los cambios comentados aqui abajo son para que el boton que cambia de tema
+      //funcione junto con el coso al tope de arriba q forza el tema oscuro
+      //solo fue cambiar que pinte el body a que pinte el html en si
+
+      // Persist dark mode setting
+      document.addEventListener("DOMContentLoaded", () => {
+        const prefersDark = localStorage.getItem("theme") === "dark";
+        // const body = document.getElementById("body");      === viejo
+
+        const html = document.documentElement;
+        const icon = document.getElementById("theme-icon");
+        if (prefersDark) {
+          //body.classList.add("dark");   === viejo
+
+          html.classList.add("dark");
+          if (icon) icon.textContent = "🌙";
+          const label = document.getElementById("theme-label");
+          if (label) label.textContent = "Modo Oscuro";
+        } else {
+          if (icon) icon.textContent = "🌞";
+          const label = document.getElementById("theme-label");
+          if (label) label.textContent = "Modo Claro";
+        }
+      });
+
+      function toggleDarkMode() {
+        // const body = document.getElementById("body");        === viejo
+        const icon = document.getElementById("theme-icon");
+        // const isDark = body.classList.toggle("dark");        === viejo
+
+        const html = document.documentElement;
+        const isDark = html.classList.toggle("dark"); 
+
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+        if (icon) {
+          icon.classList.add("rotate-180");
+          setTimeout(() => {
+            icon.textContent = isDark ? "🌙" : "🌞";
+            const label = document.getElementById("theme-label");
+            if (label) label.style.opacity = 0;
+            setTimeout(() => {
+              label.textContent = isDark ? "Modo Oscuro" : "Modo Claro";
+              label.style.opacity = 1;
+            }, 250);
+            icon.classList.remove("rotate-180");
+          }, 250);
+        }
+      }
+    </script>
+
+    {% load static %}
+    <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
+    <script>
+      tinymce.init({
+        selector: 'form.tinymce-enabled-form textarea[name="content"]',
+        menubar: false,
+        plugins: 'link image preview code',
+        toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | code preview',
+        height: 400,
+        skin: document.documentElement.classList.contains("dark") ? "oxide-dark" : "oxide",
+        content_css: document.documentElement.classList.contains("dark") ? "dark" : "default"
+      });
+    </script>
+    
+  </body>
+  <div class="visualizer absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none flex gap-[2px]">
       <span class="bar" style="animation-delay: 0s;"></span>
       <span class="bar" style="animation-delay: 0.1s;"></span>
       <span class="bar" style="animation-delay: 0.5s;"></span>
@@ -336,78 +415,4 @@
       <span class="bar" style="animation-delay: 0.5s;"></span>
       <span class="bar" style="animation-delay: 0.8s;"></span>
     </div>
-    </main>
-
-    <footer class="bg-[#5ab5ea] dark:bg-[#333] text-white py-4 px-6 transition-colors duration-500">
-      <div class="max-w-4xl mx-auto text-center text-sm">
-        © 2025 Rate.it – Todos los derechos reservados.
-      </div>
-    </footer>
-
-    <script>
-
-      //los cambios comentados aqui abajo son para que el boton que cambia de tema
-      //funcione junto con el coso al tope de arriba q forza el tema oscuro
-      //solo fue cambiar que pinte el body a que pinte el html en si
-
-      // Persist dark mode setting
-      document.addEventListener("DOMContentLoaded", () => {
-        const prefersDark = localStorage.getItem("theme") === "dark";
-        // const body = document.getElementById("body");      === viejo
-
-        const html = document.documentElement;
-        const icon = document.getElementById("theme-icon");
-        if (prefersDark) {
-          //body.classList.add("dark");   === viejo
-
-          html.classList.add("dark");
-          if (icon) icon.textContent = "🌙";
-          const label = document.getElementById("theme-label");
-          if (label) label.textContent = "Modo Oscuro";
-        } else {
-          if (icon) icon.textContent = "🌞";
-          const label = document.getElementById("theme-label");
-          if (label) label.textContent = "Modo Claro";
-        }
-      });
-
-      function toggleDarkMode() {
-        // const body = document.getElementById("body");        === viejo
-        const icon = document.getElementById("theme-icon");
-        // const isDark = body.classList.toggle("dark");        === viejo
-
-        const html = document.documentElement;
-        const isDark = html.classList.toggle("dark"); 
-
-        localStorage.setItem("theme", isDark ? "dark" : "light");
-        if (icon) {
-          icon.classList.add("rotate-180");
-          setTimeout(() => {
-            icon.textContent = isDark ? "🌙" : "🌞";
-            const label = document.getElementById("theme-label");
-            if (label) label.style.opacity = 0;
-            setTimeout(() => {
-              label.textContent = isDark ? "Modo Oscuro" : "Modo Claro";
-              label.style.opacity = 1;
-            }, 250);
-            icon.classList.remove("rotate-180");
-          }, 250);
-        }
-      }
-    </script>
-
-    {% load static %}
-    <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
-    <script>
-      tinymce.init({
-        selector: 'form.tinymce-enabled-form textarea[name="content"]',
-        menubar: false,
-        plugins: 'link image preview code',
-        toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | code preview',
-        height: 400,
-        skin: document.documentElement.classList.contains("dark") ? "oxide-dark" : "oxide",
-        content_css: document.documentElement.classList.contains("dark") ? "dark" : "default"
-      });
-    </script>
-  </body>
 </html>
