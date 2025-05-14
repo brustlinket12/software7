@@ -9,10 +9,10 @@
           </ul>
       </div>
   {% endif %}
-  <article class="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg transition-all duration-700 ease-in-out dark:text-white text-gray-900 animate-fade-in">
-    <h1 class="text-3xl font-bold mb-2">{{ object.title }}</h1>
+  <article class="bg-white dark:bg-[#333] p-6 rounded-lg shadow-lg transition-all ease-in-out animate-fade-in">
+    <h1 class="text-3xl font-bold mb-2 dark:text-[#b9aa87] text-gray-900">{{ object.title }}</h1>
     {% if blog.tag %}
-    <p class="text-sm text-gray-300 dark:text-gray-300">Género: {{ blog.tag }}
+    <p class="text-sm text-gray-400 dark:text-gray-300">Género: {{ blog.tag }}
     {% endif %}
     <p class="text-gray-700 dark:text-gray-300 mb-4">{{ object.content|safe }}</p>
 
@@ -41,14 +41,14 @@
       <h2 class="text-2xl font-semibold">Reviews</h2>
       <span>Cantidad de reseñas: {{ object.reviews.all|length }}</span>
       {% if object.average_rating > 0 %}
-          <span class="text-xl font-semibold text-blue-600 dark:text-blue-400">{{ object.average_rating|floatformat:1 }} ★</span>
+          <span class="text-xl font-semibold text-[#ffbf00] dark:text-[#ffbf00]">{{ object.average_rating|floatformat:1 }} ★</span>
       {% else %}
           <span class="text-gray-400">Sin reseñas aún</span>
       {% endif %}
   </div>
   {% for review in object.reviews.all %}
-    <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mb-4 transition-all duration-700 ease-in-out dark:text-white text-gray-900 animate-fade-in">
-      <p class="text-blue-700 dark:text-blue-300 font-medium">{{ review.reviewer.username }} - {{ review.rating }}/5 ⭐</p>
+    <div class="bg-gray-100 dark:bg-[#333] p-4 rounded-lg mb-4 transition-all duration-700 ease-in-out dark:text-white text-gray-900 animate-fade-in">
+      <p class="text-blue-700 dark:text-[#b9aa87] font-medium">{{ review.reviewer.username }} - {{ review.rating }}/5 ⭐</p>
       <p class="text-gray-700 dark:text-gray-300">{{ review.comment }}</p>
 
       <!-- Enlace para añadir comentario -->
@@ -101,7 +101,7 @@
     <p class="text-gray-400">No reviews yet. Be the first to add one.</p>
   {% endfor %}
 
-    <a href="{% url 'blogapp:add_review' object.pk %}" class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition-colors">Añade una Review</a>
+    <a href="{% url 'blogapp:add_review' object.pk %}" class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white dark:bg-[#b9aa87] dark:hover:bg-[#706342] dark:text-white px-4 py-2 rounded transition-colors">Añade una Review</a>
 
 
     <div id="deleteModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">

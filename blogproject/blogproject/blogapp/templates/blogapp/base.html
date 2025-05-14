@@ -59,7 +59,7 @@
         background-color: var(--bg-color);
       }
       
-      {% comment %} Estilo del Visualizer {% endcomment %}
+      /* {% comment %} Estilo del Visualizer {% endcomment %} */
       .visualizer {
         position: absolute;
         top: 50%;
@@ -169,7 +169,7 @@
           {% if user.is_authenticated %}
           <a
             href="{% url 'blogapp:add_blog' %}"
-            class="bg-blue-500 hover:bg-blue-600 text-white dark:bg-blue-600 dark:hover:bg-blue-700 dark:text-white font-medium py-2 px-4 rounded transition-all duration-500 ease-in-out"
+            class="bg-blue-500 hover:bg-blue-600 text-white dark:bg-[#b9aa87] dark:hover:bg-[#706342] dark:text-white font-medium py-2 px-4 rounded transition-all duration-500 ease-in-out"
             >Nuevo blog</a
           >
           {% endif %}
@@ -178,7 +178,7 @@
 
           {% if user.is_authenticated %}
           <div class="relative inline-block text left">
-            <button id="userMenuButton" class="w-10 h-10 rounded-full bg-blue-800 text-white flex items-center justify-center font-bold focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button id="userMenuButton" class="w-10 h-10 rounded-full bg-blue-800 hover:bg-blue-600 dark:bg-[#b9aa87] dark:hover:bg-[#706342] text-white flex items-center justify-center font-bold focus:outline-none focus:ring-2 focus:ring-blue-500">
               {{ user.username|slice:":1"|upper }}
             </button>
 
@@ -212,7 +212,7 @@
 
           {% else %}
           <a href="{% url 'blogapp:login' %}">
-            <button class="bg-blue-800 hover:bg-blue-700 text-white py-2 px-4 rounded-full transition-all duration-300">
+            <button class="bg-blue-800 hover:bg-blue-700 text-white dark:bg-[#b9aa87] dark:hover:bg-[#706342] dark:text-white py-2 px-4 rounded-full transition-all duration-300">
               Iniciar Sesión
             </button>
           </a>

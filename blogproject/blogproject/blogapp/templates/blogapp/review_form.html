@@ -17,9 +17,9 @@
                 <div>
                     <label for="{{ field.id_for_label }}" class="block text-sm font-medium mb-1 text-gray-900 dark:text-white">{{ field.label }}</label>
                     {% if field.name == "rating" %}
-                        {{ field|add_class:"bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-4 py-2 rounded-lg w-full border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"|attr:"min:1"|attr:"max:5"|attr:"type:number" }}
+                        {{ field|add_class:"bg-white dark:bg-[#333] text-gray-900 dark:text-white px-4 py-2 rounded-lg w-full border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"|attr:"min:1"|attr:"max:5"|attr:"type:number" }}
                     {% else %}
-                        {{ field|add_class:"bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-4 py-2 rounded-lg w-full border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        {{ field|add_class:"bg-white dark:bg-[#333] text-gray-900 dark:text-white px-4 py-2 rounded-lg w-full border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" }}
                     {% endif %}
                     {% if field.errors %}
                         <div class="text-red-500 text-sm mt-1">
@@ -31,6 +31,6 @@
                 </div>
             {% endfor %}
         </div>
-        <button type="submit" class="px-6 py-2 bg-green-500 hover:bg-green-600 text-white dark:bg-green-600 dark:hover:bg-green-700 rounded transition-all duration-500 ease-in-out">Publicar Review</button>
+        <button type="submit" class="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white dark:bg-[#b9aa87] dark:hover:bg-[#706342] rounded transition-all duration-500 ease-in-out">Publicar Review</button>
     </form>
 {% endblock %}

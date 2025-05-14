@@ -7,13 +7,13 @@
       {% for field in form %}
         <div>
           <label for="{{ field.id_for_label }}" class="block text-sm font-medium mb-1 text-gray-900 dark:text-white">{{ field.label }}</label>
-          {{ field|add_class:"bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-4 py-2 rounded-lg w-full border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+          {{ field|add_class:"bg-white dark:bg-[#333] text-gray-900 dark:text-white px-4 py-2 rounded-lg w-full border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" }}
           {% if field.errors %}
             <p class="text-red-500 text-sm">{{ field.errors|striptags }}</p>
           {% endif %}
         </div>
       {% endfor %}
     </div>
-    <button type="submit" class="px-6 py-2 bg-purple-500 hover:bg-purple-600 text-white dark:bg-purple-600 dark:hover:bg-purple-700 rounded transition-all duration-500 ease-in-out">Submit Comment</button>
+    <button type="submit" class="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white dark:bg-[#b9aa87] dark:hover:bg-[#706342] dark:text-white rounded transition-all duration-500 ease-in-out">Submit Comment</button>
   </form>
 {% endblock %}
