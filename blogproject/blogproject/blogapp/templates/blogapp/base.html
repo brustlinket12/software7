@@ -23,14 +23,14 @@
       :root {
         --bg-color:rgba(255, 255, 255, 0.51);
         --text-color: #222;
-        --header-bg-light: #222;
+        --header-bg-light: rgba(90, 181, 234, 0.91);
         --header-bg-dark: #333;
       }
 
       .dark {
-        --bg-color:rgba(112, 0, 0, 0.62);
+        --bg-color:rgba(134, 5, 10, 0.86);
         --text-color: #fff;
-        --header-bg-light: rgb(76, 118, 162);
+        --header-bg-light: rgb(216, 77, 55);
         --header-bg-dark: #222;
       }
 
@@ -48,14 +48,14 @@
       }
 
       main {
-        position: relative;  /* Necesario para que z-index funcione */
-        z-index: 1;  /* Asegúrate de que sea mayor que el del visualizador */
+        position: relative;
+        z-index: 1;  /* Asegura que el contenido se vea por encima del visualizer */
         background-color: var(--bg-color);
       }
 
       .dark main{
-        position: relative;  /* Necesario para que z-index funcione */
-        z-index: 1;  /* Asegúrate de que sea mayor que el del visualizador */
+        position: relative;
+        z-index: 1;  /* Asegura que el contenido se vea por encima del visualizer */
         background-color: var(--bg-color);
       }
       
@@ -65,7 +65,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        z-index: -1;
+        z-index: 0;
         pointer-events: none;
         display: flex;
         gap: 2px;
@@ -92,11 +92,11 @@
       }
 
   :root {
-    --bar-color:rgb(9, 86, 158); /* azul clarito para modo claro */
+    --bar-color:rgb(9, 86, 158);
   }
 
   .dark {
-    --bar-color:rgb(0, 0, 0); /* cian/azul claro para modo oscuro */
+    --bar-color:rgb(0, 0, 0);
   }
 
     </style>
@@ -119,7 +119,7 @@
   >
   
     <nav
-      class="py-4 px-6 transition-colors bg-blue-400 text-gray-800 dark:bg-[#333] dark:text-white shadow-md"
+      class="py-4 px-6 transition-colors text-gray-800 dark:bg-[#333] dark:text-white shadow-md"
     >
       <div class="max-w-6xl mx-auto flex justify-between items-center">
         <a
@@ -182,7 +182,7 @@
               {{ user.username|slice:":1"|upper }}
             </button>
 
-            <div id="userDropdown" class="hidden absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50">
+            <div id="userDropdown" class="hidden absolute right-0 mt-2 w-40 bg-white dark:bg-[#333] border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50">
               {% comment %} PERFIL {% endcomment %}
               <a href="{% url 'blogapp:profile' %}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Perfil</a>
 
@@ -229,7 +229,7 @@
       </div>
     </main>
 
-    <footer class="bg-[#1a1a1a] dark:bg-[#0d0d0d] text-white py-4 px-6 transition-colors duration-500">
+    <footer class="bg-blue-400 dark:bg-[#333] text-white py-4 px-6 transition-colors duration-500">
       <div class="max-w-4xl mx-auto text-center text-sm">
         © 2025 Rate.it – Todos los derechos reservados.
       </div>
