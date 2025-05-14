@@ -5,9 +5,143 @@
     <h1 class="text-5xl font-bold text-center">¡Blogs!</h1>
   </div>
 
+<style>
+{% comment %} Card Modo Claro {% endcomment %}
+.card {
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  width: 850px;
+  background: rgb(51, 0, 255);
+  background: linear-gradient(137deg, rgb(80, 94, 221) 0%, rgba(0,212,255,1) 100%);
+  transition: 0.3s ease;
+  border-radius: 30px;
+  filter: drop-shadow(0px 0px 30px rgba(0, 30, 112, 0.38));
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0px;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgb(31, 9, 230),
+    rgba(93, 157, 167, 0.95),
+    rgba(44, 215, 234, 0.73)
+  );
+  transform: rotate(0deg);
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.card:hover::before {
+  width: 100%;
+  opacity: 1;
+}
+
+@keyframes sweep {
+  0% {
+    transform: rotate(0deg) translateX(-100%);
+  }
+  100% {
+    transform: rotate(0deg) translateX(100%);
+  }
+}
+
+.card::after {
+  content: '';
+  background-color:rgb(254, 244, 244);
+  position: absolute;
+  z-index: -2;
+  transition: 0.3s ease;
+  height: 98%;
+  width: 98%;
+  top: 1%;
+  left: 1%;
+  border-radius: 25px;
+}
+
+.card:hover {
+  filter: drop-shadow(0px 0px 30px rgb(1, 255, 255));
+}
+
+{% comment %} Card Modo Dark {% endcomment %}
+.dark .card {
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  width: 850px;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(137deg, rgb(152, 11, 11) 0%, rgb(255, 0, 0) 100%);
+  transition: 0.3s ease;
+  border-radius: 30px;
+  filter: drop-shadow(0px 0px 30px rgba(103, 3, 23, 0.5));
+}
+
+.dark .card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0px;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(207, 12, 12, 0.58),
+    rgb(187, 46, 30),
+    rgba(236, 92, 14, 0.73)
+  );
+  transform: rotate(0deg);
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes sweep {
+  0% {
+    transform: rotate(0deg) translateX(-100%);
+  }
+  100% {
+    transform: rotate(0deg) translateX(100%);
+  }
+}
+
+.dark .card:hover::before {
+  width: 100%;
+  opacity: 1;
+}
+
+.dark .card::after {
+  content: '';
+  background-color: #181818;
+  position: absolute;
+  z-index: -2;
+  transition: 0.3s ease;
+  height: 98%;
+  width: 98%;
+  top: 1%;
+  left: 1%;
+  border-radius: 25px;
+}
+
+.dark .card:hover {
+  filter: drop-shadow(0px 0px 30px rgb(203, 8, 53));
+}
+
+
+</style>
+
+
   <div class="grid gap-6">
     {% for blog in object_list %}
-      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-700 ease-in-out dark:text-white text-gray-900 animate-fade-in">
+    {% comment %} SE AÑADE "CARD" PARA APLICAR CSS A BLOGS {% endcomment %}
+      <div class="card bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-700 ease-in-out dark:text-white text-gray-900 animate-fade-in">
         
         <!-- Mostrar la imagen si existe -->
         {% if blog.cover_image %}
