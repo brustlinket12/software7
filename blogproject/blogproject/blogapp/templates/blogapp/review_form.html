@@ -1,36 +1,58 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
 {% block content %}
-    {% if messages %}
-        <div class="mb-4">
-            <ul class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                {% for message in messages %}
-                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                {% endfor %}
-            </ul>
+  <!--{# Muestra cualquier mensaje al usuario (por ejemplo, mensajes de éxito/error) #}-->
+  {% if messages %}
+    <div class="mb-4">
+      <ul class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <!--{# Itera a través de cada mensaje en la lista de mensajes #}-->
+        {% for message in messages %}
+          <!--{# Muestra el mensaje. Si el mensaje tiene etiquetas (por ejemplo, 'success', 'error'), agrégalas como clases #}-->
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <!--{# Encabezado del formulario #}-->
+  <h1 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Escribe tu reseña</h1>
+
+  <!--{# Formulario para enviar una reseña #}-->
+  <form method="post" class="space-y-4 transition-all duration-700 ease-in-out animate-fade-in">
+    <!--{# Etiqueta de protección CSRF de Django: ¡Importante para la seguridad! Previene la falsificación de solicitudes entre sitios. #}-->
+    {% csrf_token %}
+
+    <!--{# Contenedor para los campos del formulario, agregando espaciado y transiciones #}-->
+    <div class="space-y-2 transition-all duration-700 ease-in-out">
+      <!--{# Itera a través de cada campo en el formulario #}-->
+      {% for field in form %}
+        <div>
+          <!--{# Etiqueta para el campo del formulario #}-->
+          <label for="{{ field.id_for_label }}" class="block text-sm font-medium mb-1 text-gray-900 dark:text-white">{{ field.label }}</label>
+
+          <!--{# Renderizado condicional basado en el nombre del campo #}-->
+          {% if field.name == "rating" %}
+            <!--{# Si el campo es 'rating', aplica atributos específicos para una entrada de calificación (entrada de número, valores min/max) #}-->
+            {{ field|add_class:"bg-white dark:bg-[#333] text-gray-900 dark:text-white px-4 py-2 rounded-lg w-full border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"|attr:"min:1"|attr:"max:5"|attr:"type:number" }}
+          {% else %}
+            <!--{# Para otros campos, aplica un estilo general #}-->
+            {{ field|add_class:"bg-white dark:bg-[#333] text-gray-900 dark:text-white px-4 py-2 rounded-lg w-full border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+          {% endif %}
+
+          <!--{# Muestra los errores del campo, si los hay #}-->
+          {% if field.errors %}
+            <div class="text-red-500 text-sm mt-1">
+              <!--{# Itera a través de cada mensaje de error para el campo #}-->
+              {% for error in field.errors %}
+                <div>{{ error }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
         </div>
-    {% endif %}
-    <h1 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Escribe tu reseña</h1>
-    <form method="post" class="space-y-4 transition-all duration-700 ease-in-out animate-fade-in">{% csrf_token %}
-        <div class="space-y-2 transition-all duration-700 ease-in-out">
-            {% for field in form %}
-                <div>
-                    <label for="{{ field.id_for_label }}" class="block text-sm font-medium mb-1 text-gray-900 dark:text-white">{{ field.label }}</label>
-                    {% if field.name == "rating" %}
-                        {{ field|add_class:"bg-white dark:bg-[#333] text-gray-900 dark:text-white px-4 py-2 rounded-lg w-full border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"|attr:"min:1"|attr:"max:5"|attr:"type:number" }}
-                    {% else %}
-                        {{ field|add_class:"bg-white dark:bg-[#333] text-gray-900 dark:text-white px-4 py-2 rounded-lg w-full border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" }}
-                    {% endif %}
-                    {% if field.errors %}
-                        <div class="text-red-500 text-sm mt-1">
-                            {% for error in field.errors %}
-                                <div>{{ error }}</div>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                </div>
-            {% endfor %}
-        </div>
-        <button type="submit" class="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white dark:bg-[#b9aa87] dark:hover:bg-[#706342] rounded transition-all duration-500 ease-in-out">Publicar Review</button>
-    </form>
+      {% endfor %}
+    </div>
+
+    <!--{# Botón de envío para el formulario #}-->
+    <button type="submit" class="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white dark:bg-[#b9aa87] dark:hover:bg-[#706342] rounded transition-all duration-500 ease-in-out">Publicar Review</button>
+  </form>
 {% endblock %}
