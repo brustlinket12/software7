@@ -169,21 +169,21 @@
     <!-- # AQUI EMPIEZA LA PAGINACION -->
 <div class="mt-10 flex justify-center items-center gap-4">
   {% if page_obj.has_previous %}
-    <a href="?page=1" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200">&laquo; Primera</a> # CAMBIEN EL COLOR DE ESTO , ESTO ES EL BOTON PARA MOVERSER
-    <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200">&lsaquo; Anterior</a> # CAMBIEN EL COLOR DE ESTO , ESTO ES EL BOTON PARA MOVERSER
+    <a href="?page=1" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 dark:bg-[#b9aa87] dark:hover:bg-[#706342] dark:text-[#000]">&laquo; Primera</a>
+    <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 dark:bg-[#b9aa87] dark:hover:bg-[#706342] dark:text-[#000]">&lsaquo; Anterior</a>
   {% endif %}
 
   {% for num in page_obj.paginator.page_range %}
     {% if page_obj.number == num %}
       <span class="px-3 py-1 bg-blue-400 dark:bg-[#b9aa87] text-white rounded">{{ num }}</span>
     {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-      <a href="?page={{ num }}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200">{{ num }}</a> # CAMBIEN EL COLOR DE ESTO , ESTO SON LOS NUMEROS 
+      <a href="?page={{ num }}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 dark:bg-[#b9aa87] dark:hover:bg-[#706342] dark:text-[#000]">{{ num }}</a>
     {% endif %}
   {% endfor %}
 
   {% if page_obj.has_next %}
-    <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200">Siguiente &rsaquo;</a>
-    <a href="?page={{ page_obj.paginator.num_pages }}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200">Última &raquo;</a>
+    <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 dark:bg-[#b9aa87] dark:hover:bg-[#706342] dark:text-[#000]">Siguiente &rsaquo;</a>
+    <a href="?page={{ page_obj.paginator.num_pages }}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 dark:bg-[#b9aa87] dark:hover:bg-[#706342] dark:text-[#000]">Última &raquo;</a>
   {% endif %}
 </div>
 
