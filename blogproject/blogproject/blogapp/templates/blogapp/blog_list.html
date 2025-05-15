@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="bg-blue-400 dark:bg-[#333] text-white dark:text-white pb-3 rounded-lg shadow-lg mb-2">
+  <div class="bg-blue-400 dark:bg-[#1a1a1a] text-white dark:text-white pb-3 rounded-lg shadow-lg mb-2">
     <h1 class="text-5xl font-bold text-center">¡Bienvenido a Rate.it!</h1>
   </div>
 
@@ -175,7 +175,7 @@
 
   {% for num in page_obj.paginator.page_range %}
     {% if page_obj.number == num %}
-      <span class="px-3 py-1 bg-[#b9aa87] text-white rounded">{{ num }}</span>
+      <span class="px-3 py-1 bg-blue-400 dark:bg-[#b9aa87] text-white rounded">{{ num }}</span>
     {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
       <a href="?page={{ num }}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200">{{ num }}</a> # CAMBIEN EL COLOR DE ESTO , ESTO SON LOS NUMEROS 
     {% endif %}
