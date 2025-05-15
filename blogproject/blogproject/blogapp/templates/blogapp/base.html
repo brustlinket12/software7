@@ -58,6 +58,7 @@
         background-color: var(--bg-color);
       }
 
+      {% comment %} Estilo personalizado para cambiar el z-index del contenido del main {% endcomment %}
       .m_content{
         position: relative;
         z-index: 2
@@ -239,6 +240,8 @@
     <main
       class="flex-grow w-full transition-all duration-700 ease-in-out"
     >
+      {% comment %} Se coloca el estilo creado "m_content" para poder cambiar el z-index del div que contiene
+      el contenido {% endcomment %}
       <div class="m_content max-w-4xl mx-auto px-4 py-8">
         {% block content %}{% endblock %}
       </div>
