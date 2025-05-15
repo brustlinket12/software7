@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from django.db.models import Avg  
 from tinymce.models import HTMLField
 
-def dimension_imagen(image):
+def dimension_imagen(image): #esta es la funcion para ver q no sea tan grande la imagen
     img = Image.open(image)
     width, height = img.size
 
@@ -36,7 +36,7 @@ class Blog(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     is_deleted = models.BooleanField(default=False)
     tag = models.ForeignKey(Tag,on_delete=models.SET_NULL, null=True, max_length=100)
-    cover_image = models.ImageField(upload_to='covers/', blank=True, null=True,validators=[dimension_imagen])
+    cover_image = models.ImageField(upload_to='covers/', blank=True, null=True,validators=[dimension_imagen]) # guarda la imagen en el blog en base y nomas valida el tamano 
     average_rating = models.FloatField(default=0)
 
     objects = BlogManager()

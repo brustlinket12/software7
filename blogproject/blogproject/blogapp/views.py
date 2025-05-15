@@ -31,7 +31,7 @@ class BlogDetailView(DetailView):
 
 class BlogCreateView(LoginRequiredMixin, CreateView):
     model = Blog
-    fields = ['title', 'content', 'tag', 'cover_image']
+    fields = ['title', 'content', 'tag', 'cover_image'] # aqui nadamas agrege la imagen
     template_name = 'blog_form.html'
 
     def form_valid(self, form):
@@ -143,7 +143,7 @@ class ProfileView(ListView):
 
     def get_queryset(self):
         return Blog.objects.filter(author=self.request.user)
-
+# esto registra al usuario 
 class RegisterUser(UserCreationForm):
     class Meta:
         model = User
@@ -152,16 +152,17 @@ def register(request):
     if request.method == 'POST':
         form = RegisterUser(request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.save() #Esto guarda el usuario
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password) 
+            user = authenticate(username=username, password=raw_password) # esto lo autentica 
             if user is not None:
-                login(request, user)
-                return redirect('blogapp:blog_list')
+                login(request, user) #esto me regresa el objeto user
+                return redirect('blogapp:blog_list') # esto lo envia los blogs 
     else:
         form = RegisterUser()
     return render(request, 'blogapp/create_user.html', {'form': form})
+####################### no borren mis comentarios uwu ##################
 
 class LoginUser(AuthenticationForm):
     class Meta:
@@ -241,8 +242,8 @@ def blog_list_view(request):
             Q(title__icontains=query) | Q(content__icontains=query)).distinct()
     else:
         blog_list = Blog.objects.all()
-
-    paginator = Paginator(blog_list, 5)  # 5 blogs por página
+# esto solo llama 5 blogs por paginas
+    paginator = Paginator(blog_list, 5) 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'blog_list.html', {'page_obj': page_obj, 'object_list': page_obj})
