@@ -151,7 +151,7 @@
                       <span class="text-sm text-gray-400">Sin reseñas</span>
                     {% endif %}
                 </div>
-                <p class="text-white text-m" >{{blog.content|safe}}</p>
+                <p class="text-white text-m" >{{blog.content|safe}}</p> <!-- el safe deja que se renderize el tinymce-->
                 <p class="text-sm text-gray-500 dark:text-gray-400">by {{ blog.author.username }} - {{ blog.created_at }}</p>
                 
                 <div class="flex justify-end space-x-2 text-xs my-0.2">
@@ -171,7 +171,7 @@
                     <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded mr-2">
                         Sí, eliminar
                     </button>
-                    <button
+                    <button 
                         type="button"
                         onclick="document.getElementById('deleteModal-{{ blog.pk }}').classList.add('hidden')"
                         class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded"
@@ -193,6 +193,4 @@
     solo q hay una validación pa que solo muestro los blogs del usuario que entre a esta página
 
     a parte también puede editar y eliminar los blogs
-
-    quiero ver si puedo hacer que el usuario vea sus reviews y sus comentarios y tmb los pueda eliminar al menos
 -->

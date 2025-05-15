@@ -32,9 +32,9 @@ class BlogAdmin(admin.ModelAdmin):
     readonly_fields = ('created_at', 'image_preview',)
     list_per_page = 10
 
-    inlines = (ReviewInline,)
+    inlines = (ReviewInline,) #muestra el campo de las reviews dentro de los blogs
 
-    
+    #colores en rating
     @admin.display(description='Average Rating', ordering='-average_rating',)
     def color_rating(self, obj):
         if obj.average_rating >= 4:
@@ -45,9 +45,11 @@ class BlogAdmin(admin.ModelAdmin):
             color = 'gray'
         return format_html('<span style="color: {};">{}</span>', color, obj.average_rating)
 
+    #cuenta las reviews para mostrar en el admin
     def cantidad_reviews(self, obj):
         return obj.reviews.count()
     
+    #carga una preview de la imagen del blog
     def image_preview(self, obj):
         if obj.cover_image:
             return format_html('<img src="{}" style="max-height: 100px;" />', obj.cover_image.url)
@@ -71,6 +73,7 @@ class ReviewAdmin(admin.ModelAdmin):
     readonly_fields = ('created_at',)
     list_per_page = 10
 
+    #colores para el rating
     @admin.display(description='Rating', ordering='-rating',)
     def color_rating(self, obj):
         if obj.rating >= 4:

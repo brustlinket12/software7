@@ -19,8 +19,11 @@ def dimension_imagen(image): #esta es la funcion para ver q no sea tan grande la
 # MODELOS
 
 class BlogManager(models.Manager):
+    #esto permite que se muestren los blogs que no han sido eliminados
+    #sin tener que hacer un filtro alla en el html
+    #tipo el Blog.objects.all() ahi solo se muestran los q tiene el is_deleted = False
     def get_queryset(self):
-        return super().get_queryset().filter(is_deleted=False)
+        return super().get_queryset().filter(is_deleted=False) 
 
 class Tag(models.Model):
     title = models.CharField(max_length=100)
@@ -45,6 +48,8 @@ class Blog(models.Model):
     def delete(self, *args  , **kwargs):
         self.is_deleted = True
         self.save()
+        #no elimina el blog de la base de
+        #deja al blog marcado como is_deleted
 
 
     def __str__(self):

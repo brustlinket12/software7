@@ -49,7 +49,7 @@ class BlogDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     success_url = reverse_lazy('blogapp:blog_list')
 
     def get_queryset(self):
-        return Blog.all_objects.filter(is_deleted=False)
+        return Blog.all_objects.filter(is_deleted=False) #filtra el all_objects para q muestre los que no estan borrados
 
     def test_func(self):
         return self.request.user == self.get_object().author
@@ -67,6 +67,7 @@ class BlogUpdateView(LoginRequiredMixin, UserPassesTestMixin,UpdateView ):
     def test_func(self):
         return self.request.user == self.get_object().author
 
+# utiliza la misma logica de borrado y editado q en blog
 class ReviewCreateView(LoginRequiredMixin, CreateView): #Pide usuario logeado para crear review
     model = Review
     fields = ['rating', 'comment']
