@@ -141,26 +141,28 @@
           >Rate.it</a
         >
         <!-- Barra de búsqueda -->
-         {% comment %} Se aplica al class el "SearchBar" {% endcomment %}
-        <div class="flex items-center SearchBar">
-          <form method="get" action="" class="flex items-center space-x-2 bg-white rounded-full px-2 py-1 shadow-sm border border-gray-200">
-              <input 
-                type="text" 
-                placeholder="Buscar" 
-                name="busqueda" 
-                value="{{ request.GET.busqueda}}"
-                class="flex-grow text-sm text-gray-900 placeholder-gray-500 bg-transparent focus:outline-none focus:ring-0 pl-2">
-              <span class="input-group-list"> 
-                <button type="submit" class="text-gray-500 hover:text-blue-600 transition-all duration-300 flex items-center justify-center">
-                  
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5" >
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.75 3.75a7.5 7.5 0 0012.9 12.9z" />
-                  </svg>
-                </button>
-              </span>
-          </form>
-        </div>
-
+        {% if request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'create_user' %}
+          {% comment %} Se aplica al class el "SearchBar" {% endcomment %}
+          <div class="flex items-center SearchBar">
+            <form method="get" action="" class="flex items-center space-x-2 bg-white rounded-full px-2 py-1 shadow-sm border border-gray-200">
+                <input 
+                  type="text" 
+                  placeholder="Buscar" 
+                  name="busqueda" 
+                  value="{{ request.GET.busqueda}}"
+                  class="flex-grow text-sm text-gray-900 placeholder-gray-500 bg-transparent focus:outline-none focus:ring-0 pl-2">
+                <span class="input-group-list"> 
+                   <button type="submit" class="text-gray-500 hover:text-blue-600 transition-all duration-300 flex items-center justify-center">
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5" >
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.75 3.75a7.5 7.5 0 0012.9 12.9z" />
+                    </svg>
+                  </button>
+                </span>
+            </form>
+          </div>
+        {% endif %}
+        
         <div class="flex items-center space-x-4">
           <button
             onclick="toggleDarkMode()"
