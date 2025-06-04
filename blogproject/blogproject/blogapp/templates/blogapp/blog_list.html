@@ -16,7 +16,7 @@
       background: linear-gradient(137deg, rgb(51, 108, 231) 0%, rgba(184, 237, 243) 100%);
       transition: 0.3s ease;
       border-radius: 30px;
-      filter: drop-shadow(0px 0px 30px rgba(0, 30, 112, 0.38));
+      filter: drop-shadow(0px 0px 35px rgb(25, 77, 220));
     }
 
     .card::before {
@@ -66,8 +66,9 @@
       border-radius: 25px;
     }
 
-    .card:hover {
+    .card:hover div{
       filter: drop-shadow(0px 0px 30px rgb(1, 255, 255));
+      --text-color: #ffffff;
     }
 
     /* {% comment %} Card Modo Dark {% endcomment %} */
@@ -133,6 +134,7 @@
     .dark .card:hover {
       filter: drop-shadow(0px 0px 30px rgb(95, 94, 94));
     }
+
 </style>
 
 
@@ -148,7 +150,7 @@
         
         <div class="flex justify-between items-center mb-2">
           <h2 class="text-xl font-semibold mb-2">
-            <a href="{% url 'blogapp:blog_detail' blog.pk %}" class="text-[#73748c] hover:text-[#454655] dark:text-[#b9aa87] dark:hover:text-[#d9d1bf]">{{ blog.title }}</a>
+            <a href="{% url 'blogapp:blog_detail' blog.pk %}" class="text-[#114d6b] hover:text-[#ffffff] dark:text-[#b9aa87] dark:hover:text-[#d9d1bf]">{{ blog.title }}</a>
           </h2>
           {% if blog.average_rating > 0 %}
             <span class="text-xl font-semibold text-[#ffbf00] dark:text-[#ffbf00]">{{ blog.average_rating|floatformat:1 }} ★</span>
@@ -157,33 +159,34 @@
           {% endif %}
         </div>
         {% if blog.tag %}
-              <p class="text-sm text-[#666666] dark:text-gray-300">Género: {{ blog.tag }}
+              <p class="text-sm text-[#114d6b] dark:text-gray-300">Género: {{ blog.tag }}
               {% endif %}
-        <p class="text-black text-m dark:text-white" >{{blog.content|safe}}</p>
-        <p class="text-sm text-gray-500 dark:text-gray-400">by {{ blog.author.username }} - {{ blog.created_at }}</p>
+        <p class="text-[#114d6b] text-m dark:text-white" >{{blog.content|safe}}</p>
+        <p class="text-sm text-[#114d6b] dark:text-gray-400">by {{ blog.author.username }} - {{ blog.created_at }}</p>
       </div>
     {% empty %}
-      <p class="text-gray-500 dark:text-gray-400 text-center">No blogs have been posted yet.</p>
+      <p class="text-[#114d6b] dark:text-gray-400 text-center">No blogs have been posted yet.</p>
     {% endfor %}
   </div>
     <!-- # AQUI EMPIEZA LA PAGINACION -->
 <div class="mt-10 flex justify-center items-center gap-4">
   {% if page_obj.has_previous %}
-    <a href="?page=1" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 dark:bg-[#b9aa87] dark:hover:bg-[#706342] dark:text-[#000]">&laquo; Primera</a>
-    <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 dark:bg-[#b9aa87] dark:hover:bg-[#706342] dark:text-[#000]">&lsaquo; Anterior</a>
+    <a href="?page=1" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 dark:bg-[#b9aa87] dark:hover:bg-[#706342] dark:text-white">&laquo; Primera</a>
+    <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 dark:bg-[#b9aa87] dark:hover:bg-[#706342] dark:text-white">&lsaquo; Anterior</a>
   {% endif %}
 
   {% for num in page_obj.paginator.page_range %}
     {% if page_obj.number == num %}
-      <span class="px-3 py-1 bg-blue-400 dark:bg-[#b9aa87] text-white rounded">{{ num }}</span>
+    {% comment %} Color del contenedor de la página actual {% endcomment %}
+      <span class="px-3 py-1 bg-blue-400 dark:bg-[#6e6550] text-white rounded">{{ num }}</span>
     {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-      <a href="?page={{ num }}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 dark:bg-[#b9aa87] dark:hover:bg-[#706342] dark:text-[#000]">{{ num }}</a>
+      <a href="?page={{ num }}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 dark:bg-[#b9aa87] dark:hover:bg-[#706342] dark:text-white">{{ num }}</a>
     {% endif %}
   {% endfor %}
 
   {% if page_obj.has_next %}
-    <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 dark:bg-[#b9aa87] dark:hover:bg-[#706342] dark:text-[#000]">Siguiente &rsaquo;</a>
-    <a href="?page={{ page_obj.paginator.num_pages }}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 dark:bg-[#b9aa87] dark:hover:bg-[#706342] dark:text-[#000]">Última &raquo;</a>
+    <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 dark:bg-[#b9aa87] dark:hover:bg-[#706342] dark:text-white">Siguiente &rsaquo;</a>
+    <a href="?page={{ page_obj.paginator.num_pages }}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 dark:bg-[#b9aa87] dark:hover:bg-[#706342] dark:text-white">Última &raquo;</a>
   {% endif %}
 </div>
 
