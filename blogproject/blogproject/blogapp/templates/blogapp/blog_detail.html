@@ -142,5 +142,29 @@
       </form>
     </div>
   </div>
+      {% comment %} Script para funcionamiento de animaciones de publicaciones {% endcomment %}
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const cards = document.querySelectorAll(".card");
+
+      const observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target); // Quita el observador si ya apareció
+            }
+          });
+        },
+        {
+          threshold: 0.1,
+        }
+      );
+
+      cards.forEach(card => {
+        observer.observe(card);
+      });
+    });
+  </script>
 </section>
 {% endblock %}
