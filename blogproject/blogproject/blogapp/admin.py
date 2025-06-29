@@ -7,7 +7,8 @@ from django.utils.html import format_html
 
 admin.site.site_header = "Rate.it Admin Portal"
 admin.site.site_title = "Rate.it Admin"
-
+ #si
+ 
 class ReviewInline(admin.TabularInline):
     model = Review
     extra = 1
