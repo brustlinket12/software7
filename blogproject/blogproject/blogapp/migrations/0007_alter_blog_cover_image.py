@@ -2,7 +2,7 @@
 
 import blogapp.models
 from django.db import migrations, models
-
+from blogapp.models.blog import dimension_imagen
 
 class Migration(migrations.Migration):
 
@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
                 blank=True,
                 null=True,
                 upload_to="covers/",
-                validators=[blogapp.models.dimension_imagen],
+                validators=[dimension_imagen],
             ),
         ),
     ]

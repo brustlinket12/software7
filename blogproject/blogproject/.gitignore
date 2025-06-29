@@ -1,0 +1,60 @@
+# Python
+*.pyc
+__pycache__/
+*.pyd
+*.pyo
+
+# Django
+# Base de datos SQLite
+db.sqlite3
+/media
+/static_collected
+
+# Archivos de configuración local que pueden contener secretos
+# Si usas un archivo de settings local para variables de entorno o credenciales
+# Es común nombrarlo local_settings.py o .env
+local_settings.py
+.env
+
+# Entornos virtuales (Virtual Environments)
+# Ignora las carpetas donde se crean los entornos virtuales.
+# Algunos nombres comunes para entornos virtuales:
+venv/
+.venv/
+env/
+/Envs/
+
+# Dependencias (si usas pip freeze > requirements.txt, asegúrate de no ignorar requirements.txt)
+# Si instalas paquetes localmente para el proyecto (no recomendado), ignóralos
+# *.egg-info/
+# .tox/
+# .coverage
+
+# Misceláneos
+.DS_Store # Archivos de macOS
+.ipynb_checkpoints/ # Si usas Jupyter Notebooks
+*.log # Archivos de log
+*.pot # Archivos de traducción de Django
+*.mo # Archivos de traducción compilados de Django
+
+# Archivos de IDEs (Entornos de Desarrollo Integrado)
+# Visual Studio Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Atom
+.atom/
+
+# Vim
+*.swp
+*.swo
+
+# Emacs
+#*~
+#\#*#
