@@ -17,102 +17,19 @@
     <title>🎧 Rate.it</title>
 
 
+    <script>
+    tailwind.config = {
+      theme: {
+        extend: {},
+      },
+      plugins: [tailwindcssLineClamp],
+    };
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/line-clamp@0.4.0"></script>
 
-    <style>
-      :root {
-        --bg-color:rgba(255, 255, 255, 0.51);
-        --text-color: #222;
-        --header-bg-light: rgba(90, 181, 234, 0.91);
-      }
-
-      .dark {
-        --bg-color:rgba(85, 5, 8, 0.86);
-        --text-color: #fff;
-        --header-bg-dark: #1a1a1a;
-      }
-
-      body {
-        background-color: var(--bg-color);
-        color: var(--text-color);
-      }
-
-      header, nav, footer {
-        background-color: var(--header-bg-light);
-      }
-
-      /*{
-        position: relative;
-        z-index: 10;
-      }*/
-
-      .dark header, .dark nav, .dark footer {
-        background-color: var(--header-bg-dark);
-      }
-
-      main {
-        position: relative;
-        z-index: 2;  /* Asegura que el contenido se vea por encima del visualizer */
-        background-color: var(--bg-color);
-      }
-
-      /*{% comment %} Estilo personalizado para cambiar el z-index del contenido del main {% endcomment %}*/
-      .m_content{
-        position: relative;
-        z-index: 2
-      }
-
-      .dark main{
-        position: relative;
-        z-index: 2;  /* Asegura que el contenido se vea por encima del visualizer */
-        background-color: var(--bg-color);
-      }
-      
-      /* {% comment %} Estilo del Visualizer {% endcomment %} */
-      .visualizer {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: -1;
-        pointer-events: none;
-        display: flex;
-        gap: 2px;
-      }
-      
-      .visualizer span {
-        width: 10px;
-        height: 150px;
-        background: var(--bar-color);
-        margin: 0 4px;
-        display: inline-block;
-        animation: bounce 4s infinite ease-in-out;
-        transform-origin: center; /* cambia de bottom a center */
-      }
-      
-      
-      @keyframes bounce {
-        0%, 100% {
-          transform: scaleY(1);  /* más pequeñas */
-        }
-        50% {
-          transform: scaleY(3.1);  /* más grandes */
-        }
-      }
-
-  :root {
-    --bar-color:rgb(9, 86, 158);
-  }
-
-  .dark {
-    --bar-color:rgb(185, 170, 135);
-  }
-
-  .SearchBar  input{
-    height: 30px;
-    width: 600px;
-  }
-    </style>
+    <link rel="stylesheet" href="{% static 'blogapp/css/style.css' %}">
 
     <script>
       tailwind.config = {
@@ -430,5 +347,30 @@
       });
     </script>
     
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const cards = document.querySelectorAll(".card");
+
+      const observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target); // Quita el observador si ya apareció
+            }
+          });
+        },
+        {
+          threshold: 0.1,
+        }
+      );
+
+      cards.forEach(card => {
+        observer.observe(card);
+      });
+    });
+  </script>
+
+
   </body>
 </html>
