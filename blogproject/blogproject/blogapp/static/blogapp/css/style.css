@@ -13,13 +13,9 @@
       }
 
       .dark body {
-        background: linear-gradient(
-        180deg,
-        rgba(0, 0, 0),
-        rgb(173, 40, 23),
-        rgb(0, 0, 0),
-        rgb(173, 40, 23)
-      );
+        background: #FCB045;
+        background: radial-gradient(circle,rgba(252, 176, 69, 1) 0%, rgba(225, 22, 36, 1) 25%, rgba(119, 22, 31, 1) 75%, rgba(26, 22, 26, 1) 100%);
+
         color: var(--text-color);
       }
 
@@ -74,7 +70,19 @@
       .visualizer span {
         width: 10px;
         height: 150px;
-        background: var(--bar-color);
+        background: #22C1C3;
+        background: linear-gradient(0deg,rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+        margin: 0 4px;
+        display: inline-block;
+        animation: bounce 4s infinite ease-in-out;
+        transform-origin: center; /* cambia de bottom a center */
+      }
+
+      .dark .visualizer span {
+        width: 10px;
+        height: 150px;
+        background: 	#1A161A;
+        background: radial-gradient(circle,rgba(26, 22, 26, 1) 0%, rgba(225, 22, 36, 1) 50%, rgba(252, 176, 69, 1) 100%);
         margin: 0 4px;
         display: inline-block;
         animation: bounce 4s infinite ease-in-out;
@@ -91,13 +99,13 @@
         }
       }
 
-  :root {
+  /* :root {
     --bar-color:rgb(9, 86, 158);
   }
 
   .dark {
     --bar-color:rgb(185, 170, 135);
-  }
+  } */
 
   .SearchBar  input{
     height: 30px;
@@ -184,8 +192,8 @@
       position: relative;
       z-index: 2;
       width: 865px;
-      background: rgb(0, 0, 0);
-      background: linear-gradient(137deg, rgb(0, 0, 0) 0%, rgb(0,0,0) 100%);
+      background: #1A161A;
+      background: linear-gradient(90deg,rgba(26, 22, 26, 100) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
       border-radius: 30px;
       filter: drop-shadow(0px 0px 30px rgba(103, 3, 23, 0.5));
       opacity: 0;
