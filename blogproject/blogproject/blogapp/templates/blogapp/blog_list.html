@@ -1,36 +1,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="bg-blue-400 dark:bg-[#1a1a1a] text-white dark:text-white pb-3 rounded-lg shadow-lg mb-2 main_title">
+  <div class="bg-blue-400 dark:bg-[#1a1a1a] text-white dark:text-white pb-5 rounded-lg shadow-lg mb-2 max-w-2xl mx-auto main_title">
     <h1 class="text-5xl font-bold text-center">¡Bienvenido a Rate.it!</h1>
   </div>
 
 
-
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+  <div class="grid-container pt-5">
     {% for blog in object_list %}
     {% comment %} SE AÑADE "CARD" PARA APLICAR CSS A BLOGS {% endcomment %}
-      <div class="card p-6 hover:shadow-xl ease-in-out dark:text-white text-gray-900 animate-fade-in transition-transform duration-300 hover:scale-105 dark:hover:scale-105">
+      <div class="card flex flex-col h-full p-5 hover:shadow-xl ease-in-out dark:text-white text-gray-900 animate-fade-in transition-transform duration-300 hover:scale-105 dark:hover:scale-105">
         
         <!-- Mostrar la imagen si existe -->
         {% if blog.cover_image %}
-          <img src="{{ blog.cover_image.url }}" alt="{{ blog.title }}" class="mb-4 rounded-lg shadow-md max-w-full h-auto">
+          <img src="{{ blog.cover_image.url }}" alt="{{ blog.title }}">
         {% endif %}
         
         <div class="flex justify-between items-center mb-2">
           <h2 class="text-xl font-semibold mb-2">
             <a href="{% url 'blogapp:blog_detail' blog.pk %}" class="title">{{ blog.title }}</a>
           </h2>
-          {% if blog.average_rating > 0 %}
-            <span class="text-xl font-semibold text-[#ffbf00] dark:text-[#ffbf00]">{{ blog.average_rating|floatformat:1 }} ★</span>
-           {% else %}
-            <span class="text-black-800 fm dark:text-white-800 dark:font-medium out_contet">Sin reseñas aún</span>
-          {% endif %}
+            <h3>
+              {% if blog.average_rating > 0 %}
+                <span class="text-xl font-semibold text-[#ffbf00] dark:text-[#ffbf00]">{{ blog.average_rating|floatformat:1 }} ★</span>
+              {% else %}
+                <span class="text-black-800 fm dark:text-white-800 dark:font-medium out_contet">Sin reseñas aún</span>
+              {% endif %}
+            </h3>
         </div>
         {% if blog.tag %}
               <p class="text-sm out_contet">Género: {{ blog.tag }}
               {% endif %}
-      <div class="line-clamp-3">
+      <div class="line-clamp-2">
         <p class="text-black text-m dark:text-white" >{{blog.content|safe}}</p>
       </div>
       <div>
@@ -42,24 +43,28 @@
     {% endfor %}
   </div>
     <!-- # AQUI EMPIEZA LA PAGINACION -->
-<div class="mt-10 flex justify-center items-center gap-4">
+<div class="mt-10 flex justify-center items-center gap-4 paginacion">
   {% if page_obj.has_previous %}
-    <a href="?page=1" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 dark:bg-[#b9aa87] dark:hover:bg-[#706342] dark:text-[#000]">&laquo; Primera</a>
-    <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 dark:bg-[#b9aa87] dark:hover:bg-[#706342] dark:text-[#000]">&lsaquo; Anterior</a>
+  <div class="go-back">
+    <a href="?page=1" class="px-3 py-1">&laquo; Primera</a>
+    <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-1">&lsaquo; Anterior</a>
+  </div>
   {% endif %}
 
   {% for num in page_obj.paginator.page_range %}
     {% if page_obj.number == num %}
-      <span class="px-3 py-1 bg-blue-400 dark:bg-[#b9aa87] text-white rounded">{{ num }}</span>
+      <span class="px-3 py-1 actual_p rounded">{{ num }}</span>
     {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-      <a href="?page={{ num }}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 dark:bg-[#b9aa87] dark:hover:bg-[#706342] dark:text-[#000]">{{ num }}</a>
+      <a href="?page={{ num }}" class="px-3 py-1 available_p">{{ num }}</a>
     {% endif %}
   {% endfor %}
 
+  <div class="go-back">
   {% if page_obj.has_next %}
     <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 dark:bg-[#b9aa87] dark:hover:bg-[#706342] dark:text-[#000]">Siguiente &rsaquo;</a>
     <a href="?page={{ page_obj.paginator.num_pages }}" class="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 dark:bg-[#b9aa87] dark:hover:bg-[#706342] dark:text-[#000]">Última &raquo;</a>
   {% endif %}
+  </div>
 </div>
 
 {% endblock %}
