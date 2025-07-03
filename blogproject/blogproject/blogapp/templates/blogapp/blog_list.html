@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1 class="text-5xl font-bold text-center pb-8">
+  <h1 class="text-5xl font-bold text-center pb-5">
     <span class="main_title"> ¡Bienvenido a Rate.it! </span>
   </h1>
   
@@ -10,7 +10,7 @@
   <div class="grid-container pt-5">
     {% for blog in object_list %}
     {% comment %} SE AÑADE "CARD" PARA APLICAR CSS A BLOGS {% endcomment %}
-      <div class="card flex flex-col h-full p-5 hover:shadow-xl ease-in-out dark:text-white text-gray-900 animate-fade-in transition-transform duration-300 hover:scale-105 dark:hover:scale-105">
+      <div class="card flex flex-col h-full w-full max-w-full sm:max-w-[320px] md:max-w-[360px] lg:max-w-[400px] p-5 hover:shadow-xl ease-in-out animate-fade-in transition-transform duration-300 hover:scale-105 dark:hover:scale-105">
         
         <!-- Mostrar la imagen si existe -->
         {% if blog.cover_image %}

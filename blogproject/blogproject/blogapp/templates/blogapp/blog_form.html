@@ -14,13 +14,13 @@
       {% for field in form %}
        
     <h2 class="p-3">
-      <span> <label for="{{ field.id_for_label }}" class="mb-10 lable_title">{{ field.label }}</label> </span>
+      <span> <label for="{{ field.id_for_label }}" class="mb-10  lable_title">{{ field.label }}</label> </span>
     </h2>
 
           {% if field.name == "content" %}
             {{ field }}
           {% else %}
-            {{ field|add_class:"bg-white dark:bg-[#333] text-gray-900 dark:text-white px-4 py-2 rounded-lg w-full border border-red-1000 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+            {{ field|add_class:"bg-[#847ef7] dark:bg-[#1A161A] text-white dark:text-white px-4 py-2 rounded-lg border border-black-1000 dark:border-red-700 focus:outline-none focus:ring-2 focus:ring-blue-500 cont_w" }}
           {% endif %}
 
           {% if field.errors %}
